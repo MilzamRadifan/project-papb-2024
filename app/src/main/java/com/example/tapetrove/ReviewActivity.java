@@ -3,6 +3,7 @@ package com.example.tapetrove;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +14,9 @@ import androidx.core.view.WindowInsetsCompat;
 public class ReviewActivity extends AppCompatActivity {
 
     EditText inputReview;
+    TextView textView;
     Button button;
+    float rating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +24,16 @@ public class ReviewActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_review);
 
-        inputReview = (EditText) findViewById(R.id.et_reviewET);
-        button = findViewById(R.id.btn_detailsButton1);
+        inputReview = findViewById(R.id.et_reviewET);
+        textView = findViewById(R.id.textView);
+        button = findViewById(R.id.btn_submitButton);
+
+        rating = getIntent().getFloatExtra("rating", 0);
+
+        button.setOnClickListener(view -> {
+            String review = inputReview.getText().toString();
+            textView.setText("Rating: " + rating + "\nReview: " + review);
+        });
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
