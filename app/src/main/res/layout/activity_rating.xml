@@ -47,7 +47,7 @@
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <Button
-        android:id="@+id/btn_submitButton"
+        android:id="@+id/btn_detailsButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"

@@ -22,7 +22,7 @@ public class ReviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_review);
 
         inputReview = (EditText) findViewById(R.id.et_reviewET);
-        button = findViewById(R.id.btn_submitButton);
+        button = findViewById(R.id.btn_detailsButton1);
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
