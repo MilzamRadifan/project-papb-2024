@@ -1,20 +1,26 @@
 package com.example.tapetrove;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.os.Handler;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class ProsesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_proses);
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+//            return insets;
+//        });
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.home);
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -34,14 +40,16 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
-        Button button = findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
+        String statusPembayaran = "proses";
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onClick(View view) {
-                // Memulai aktivitas PeminjamanActivity
-                Intent intent = new Intent(MainActivity.this, PeminjamanActivity.class);
+            public void run() {
+                // Memulai aktivitas BerhasilActivity setelah 5 detik
+                Intent intent = new Intent(ProsesActivity.this, BerhasilActivity.class);
+                intent.putExtra("status_pembayaran", statusPembayaran);
                 startActivity(intent);
+                finish(); // Mengakhiri ProsesActivity setelah memulai BerhasilActivity
             }
-        });
+        }, 5000); // 5000 milidetik = 5 detik
     }
 }

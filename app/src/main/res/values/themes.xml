@@ -3,6 +3,8 @@
     <style name="Base.Theme.TapeTrove" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor">#000519</item>
+
     </style>
 
     <style name="Theme.TapeTrove" parent="Base.Theme.TapeTrove" />
