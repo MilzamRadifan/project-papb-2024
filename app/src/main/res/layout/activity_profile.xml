@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".profile"
+    android:background="#000519">
+
+    <LinearLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/profileLayout"
+            layout="@layout/tamp_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="140dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#095DC2"
+            android:clickable="true"
+            android:text="Edit Profile"
+            app:layout_constraintTop_toBottomOf="@+id/profileLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/menuProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/btEdit"
+        app:layout_constraintBottom_toTopOf="@+id/btOut"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/content1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btEdit">
+            
+            <ImageView
+                android:id="@+id/ivmenuakun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/akun" />
+
+        <TextView
+            android:id="@+id/tvmenuakun"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Akun"
+            android:layout_marginStart="20dp"
+            android:drawableRight="@drawable/arrow"
+            android:textColor="@color/colorHuruf"
+            android:textSize="21sp"
+            android:paddingRight="20dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/ivmenuakun"/>
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/content2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/content1">
+
+            <ImageView
+                android:id="@+id/ivmenupengaturan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/pengaturan" />
+
+            <TextView
+                android:id="@+id/tvmenupengaturan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pengaturan"
+                android:layout_marginStart="20dp"
+                android:drawableRight="@drawable/arrow"
+                android:textColor="@color/colorHuruf"
+                android:textSize="21sp"
+                android:paddingRight="20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/ivmenupengakuan"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/content3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/content2">
+
+            <ImageView
+                android:id="@+id/ivmenubahasa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/bahasa" />
+
+            <TextView
+                android:id="@+id/tvmenubahasa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bahasa Aplikasi"
+                android:layout_marginStart="20dp"
+                android:drawableRight="@drawable/arrow"
+                android:textColor="@color/colorHuruf"
+                android:textSize="21sp"
+                android:paddingRight="20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/ivmenubahasa"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/content4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/content3">
+
+            <ImageView
+                android:id="@+id/ivmenunotif"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/notifikasi" />
+
+            <TextView
+                android:id="@+id/tvmenunotif"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Notifikasi"
+                android:layout_marginStart="20dp"
+                android:drawableRight="@drawable/arrow"
+                android:textColor="@color/colorHuruf"
+                android:textSize="21sp"
+                android:paddingRight="20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/ivmenunotif"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/content5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/content4">
+
+            <ImageView
+                android:id="@+id/ivmenuhelp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/help" />
+
+            <TextView
+                android:id="@+id/tvmenuhelp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bantuan &amp; Dukungan"
+                android:layout_marginStart="20dp"
+                android:drawableRight="@drawable/arrow"
+                android:textColor="@color/colorHuruf"
+                android:textSize="21sp"
+                android:paddingRight="20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/ivmenuhelp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/content6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/content5">
+
+            <ImageView
+                android:id="@+id/ivmenuriwayat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/riwayat" />
+
+            <TextView
+                android:id="@+id/tvmenuriwayat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Riwayat Peminjaman"
+                android:layout_marginStart="20dp"
+                android:drawableRight="@drawable/arrow"
+                android:textColor="@color/colorHuruf"
+                android:textSize="21sp"
+                android:paddingRight="20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/ivmenuriwayat"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/content7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/content6">
+
+            <ImageView
+                android:id="@+id/ivmenudaftarpinjaman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/daftarpinjam" />
+
+            <TextView
+                android:id="@+id/tvmenudaftarpinjaman"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Daftar Pinjaman"
+                android:layout_marginStart="20dp"
+                android:drawableRight="@drawable/arrow"
+                android:textColor="@color/colorHuruf"
+                android:textSize="21sp"
+                android:paddingRight="20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/ivmendaftarpinjaman"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#095DC2"
+        android:clickable="true"
+        android:text="Keluar"
+        app:layout_constraintTop_toBottomOf="@id/menuProfile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    </LinearLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000519"
+        app:itemIconTint="#FFFFFF"
+        app:itemTextColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

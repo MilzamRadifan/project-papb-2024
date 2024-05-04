@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".editProfile"
+    android:background="#000519">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#000519"
+        app:itemIconTint="#FFFFFF"
+        app:itemTextColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+        app:menu="@menu/bottom_nav">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/logoapp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:padding="2dp"
+            android:backgroundTint="#FFFFFF"
+            android:src="@drawable/logoapp"
+            app:layout_constraintTop_toBottomOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:layout_marginTop="150dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/logoapp">
+
+            <EditText
+                android:id="@+id/etNama"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_input"
+                android:hint="Nama"
+                android:inputType="text"
+                android:paddingLeft="30dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="#767676" />
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_input"
+                android:hint="Email Address"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="30dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="#767676" />
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_input"
+                android:drawableRight="@drawable/ic_lock"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingLeft="30dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="#767676" />
+
+            <EditText
+                android:id="@+id/etnomorhp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_input"
+                android:hint="Nomor Telepon"
+                android:inputType="text|phone"
+                android:paddingLeft="30dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="#767676" />
+
+            <EditText
+                android:id="@+id/etAlamat"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_input"
+                android:hint="Alamat"
+                android:inputType="text"
+                android:paddingLeft="30dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/colorPrimary"
+                android:textColorHint="#767676" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btSimpan"
+            android:layout_width="199dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="540dp"
+            android:backgroundTint="#095DC2"
+            android:clickable="true"
+            android:text="Simpan Perubahan" />
+
+        <Button
+            android:id="@+id/btCancel"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="590dp"
+            android:backgroundTint="#AEC2DA"
+            android:clickable="true"
+            android:text="Keluar" />
+    </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
