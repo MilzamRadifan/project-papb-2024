@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:visibility="visible">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardRv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imgPoster"
+            android:layout_width="120dp"
+            android:layout_height="180dp"
+            android:contentDescription="poster"
+            android:scaleType="centerCrop"
+            app:flow_horizontalBias="0.0"
+            app:flow_verticalBias="0.0" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvReleasedate"
+        android:layout_width="120dp"
+        android:layout_height="12dp"
+        android:layout_below="@+id/tvTitle"
+        android:gravity="start"
+        android:text="2021"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvTitle"
+        app:layout_constraintStart_toStartOf="@+id/tvTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imgPoster"
+        android:layout_marginTop="10dp"
+        android:gravity="start"
+        android:text="Free Guy"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@color/white"
+        android:textColorLink="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/cardRv"
+        app:layout_constraintStart_toStartOf="@+id/cardRv"
+        app:layout_constraintTop_toBottomOf="@+id/cardRv" />
+</androidx.constraintlayout.widget.ConstraintLayout>
