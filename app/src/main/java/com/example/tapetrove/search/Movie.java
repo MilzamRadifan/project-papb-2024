@@ -1,4 +1,4 @@
-package com.example.tapetrove;
+package com.example.tapetrove.search;
 
 import java.util.List;
 
@@ -95,7 +95,11 @@ public class Movie {
     }
 
     public String getRelease_date_year() {
-      return release_date.substring(0,4);
+      if (release_date != null && release_date.length() >= 4) {
+        return release_date.substring(0, 4);
+      } else {
+        return "N/A"; // Atau tindakan lain sesuai kebutuhan aplikasi Anda
+      }
     }
 
     public void setRelease_date(String release_date) {

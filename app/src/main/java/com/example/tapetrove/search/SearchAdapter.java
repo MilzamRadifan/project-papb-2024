@@ -1,4 +1,4 @@
-package com.example.tapetrove;
+package com.example.tapetrove.search;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.tapetrove.R;
 
 import java.util.List;
 
@@ -67,7 +68,14 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     ViewHolder vh = (ViewHolder) holder;
 
     vh.tvTitle.setText(m.getTitle().toString());
-    vh.tvReleasedate.setText(m.getRelease_date_year().toString());
+
+    if (m.getRelease_date_year() != null) {
+      vh.tvReleasedate.setText(m.getRelease_date_year().toString());
+    } else {
+      vh.tvReleasedate.setText("N/A"); // Atau tindakan lain sesuai kebutuhan aplikasi Anda
+    }
+
+//    vh.tvReleasedate.setText(m.getRelease_date_year().toString());
     Glide.with(context).
             load("https://image.tmdb.org/t/p/w500"+m.getPoster_path()).into(vh.imgPoster);
     vh.cardRv.setOnClickListener(new View.OnClickListener() {
