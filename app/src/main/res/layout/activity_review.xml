@@ -27,6 +27,7 @@
         android:ems="10"
         android:inputType="text"
         android:labelFor="@id/et_reviewET"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
