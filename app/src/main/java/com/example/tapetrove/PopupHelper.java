@@ -14,6 +14,7 @@ public class PopupHelper {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.film_popup, null);
 
+        TextView tvNamaFilmPopup = popupView.findViewById(R.id.tvNamaFilmPopup);
         TextView tvPaymentMethodPopup = popupView.findViewById(R.id.tvPaymentMethodPopup);
         TextView tvHargaSewaPopup = popupView.findViewById(R.id.tvHargaSewaPopup);
         TextView tvtanggalRentPopup = popupView.findViewById(R.id.tvtanggalRentPopup);
@@ -21,6 +22,8 @@ public class PopupHelper {
         TextView tvStatusPopup = popupView.findViewById(R.id.tvStatusPopup);
         Button btTtp = popupView.findViewById(R.id.btTtp);
 
+        // Mengisi teks dengan data yang sesuai
+        tvNamaFilmPopup.setText(film.namaFilm);
         tvPaymentMethodPopup.setText(film.paymentMethod);
         tvHargaSewaPopup.setText(film.hargaSewa);
         tvtanggalRentPopup.setText(film.tanggalRent);

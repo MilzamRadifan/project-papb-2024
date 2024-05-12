@@ -1,51 +1,67 @@
 package com.example.tapetrove;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.room.Room;
+
+import com.bumptech.glide.Glide;
 
 public class profile extends AppCompatActivity {
 
-    private static final int REQUEST_CODE_EDIT_PROFILE = 1;
-    private TextView tvNama;
-    private TextView tvEmail;
-    private Bitmap ibAvatar;
-    LinearLayout layout;
+    private TextView tvUsername, tvEmail;
+    private ImageButton ibAvatar;
+    private UserDatabase userDb;
+    private UserDao userDao;
+    private pilihGambarProfile pilihGambar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_profile);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
 
-        tvNama = findViewById(R.id.tvNama);
+        tvUsername = findViewById(R.id.tvUsername);
         tvEmail = findViewById(R.id.tvEmail);
         Button btEdit = findViewById(R.id.btEdit);
         Button btOut = findViewById(R.id.btOut);
+        ibAvatar = findViewById(R.id.ibAvatar);
         LinearLayout content6 = findViewById(R.id.content6);
+
+        // Inisialisasi database dan userDao
+        userDb = Room.databaseBuilder(this, UserDatabase.class, "user")
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build();
+        userDao = userDb.getDao();
+
+        // Mendapatkan data pengguna dari database
+        String username = getIntent().getStringExtra("username");
+        User user = userDao.getUserByUsername(username);
+        if (user != null) {
+            tvUsername.setText(user.getUsername());
+            tvEmail.setText(user.getEmail());
+        }
+
+        // Inisialisasi objek pilihGambar
+        pilihGambar = new pilihGambarProfile(this, ibAvatar);
+
         btEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(profile.this, editProfile.class);
-                intent.putExtra("nama", tvNama.getText().toString());
-                intent.putExtra("email", tvEmail.getText().toString());
-                startActivity(intent);
+                Intent editProfileIntent = new Intent(profile.this, editProfile.class);
+                editProfileIntent.putExtra("username", user.getUsername());
+                editProfileIntent.putExtra("email", user.getEmail());
+                editProfileIntent.putExtra("notelpon", user.getTelephone());
+                editProfileIntent.putExtra("alamat", user.getAddress());
+                startActivityForResult(editProfileIntent, 1);
             }
         });
 
@@ -57,53 +73,6 @@ public class profile extends AppCompatActivity {
             }
         });
 
-//        LinearLayout content1 = findViewById(R.id.content1);
-//        content1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(profile.this, akun.class);
-//                startActivity(intent);
-//            }
-//        });
-
-//
-//        LinearLayout content2 = findViewById(R.id.content2);
-//        content2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(profile.this, pengaturan.class);
-//                startActivity(intent);
-//            }
-//        });
-
-//        LinearLayout content3 = findViewById(R.id.content3);
-//        content3.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(profile.this, bahasa.class);
-//                startActivity(intent);
-//            }
-//        });
-
-//        LinearLayout content4 = findViewById(R.id.content4);
-//        content4.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(profile.this, notifikasi.class);
-//                startActivity(intent);
-//            }
-//        });
-
-//        LinearLayout content5 = findViewById(R.id.content5);
-//        content5.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(profile.this, bantuan.class);
-//                startActivity(intent);
-//            }
-//        });
-
-
         content6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,14 +81,31 @@ public class profile extends AppCompatActivity {
             }
         });
 
-//        LinearLayout content7 = findViewById(R.id.content7);
-//        content7.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(profile.this, daftarPinjaman.class);
-//                startActivity(intent);
-//            }
-//        });
+        ibAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pilihGambar.showDialog();
+            }
+        });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            String newUsername = data.getStringExtra("newusername");
+            String newEmail = data.getStringExtra("newemail");
+            String newNoTelpon = data.getStringExtra("newnotelpon");
+            String newAlamat = data.getStringExtra("newalamat");
+
+            // Update tampilan profil dengan data yang diperbarui
+            tvUsername.setText(newUsername);
+            tvEmail.setText(newEmail);
+
+            // Update data pengguna di database (jika perlu)
+            User updatedUser = new User(0, newUsername, newEmail, "", newNoTelpon, newAlamat);
+            userDao.updateUser(updatedUser);
+        }
+    }
 }

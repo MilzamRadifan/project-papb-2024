@@ -55,12 +55,12 @@
             app:layout_constraintTop_toBottomOf="@+id/logoapp">
 
             <EditText
-                android:id="@+id/etNama"
+                android:id="@+id/etUsername"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/bg_input"
-                android:hint="Nama"
+                android:hint="Username"
                 android:inputType="text"
                 android:paddingLeft="30dp"
                 android:paddingRight="20dp"
@@ -130,6 +130,7 @@
             android:layout_marginTop="540dp"
             android:backgroundTint="#095DC2"
             android:clickable="true"
+            android:textColor="@color/colorHuruf"
             android:text="Simpan Perubahan" />
 
         <Button
@@ -140,6 +141,7 @@
             android:layout_marginTop="590dp"
             android:backgroundTint="#AEC2DA"
             android:clickable="true"
+            android:textColor="@color/colorHuruf"
             android:text="Keluar" />
     </FrameLayout>
 

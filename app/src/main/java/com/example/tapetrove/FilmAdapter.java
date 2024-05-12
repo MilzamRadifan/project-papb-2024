@@ -14,31 +14,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class FilmAdapter
         extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<FilmApi> films;
-    private Context context;
+    private final List<Film> films;
+    private final Context context;
 
-    public FilmAdapter(Context context, List<FilmApi> films){
+    public FilmAdapter(Context context, List<Film> films){
         this.context = context;
         this.films = films;
-    }
-
-    // Method untuk memperbarui data film
-    public void setFilms(List<FilmApi> films) {
-        this.films = films;
-        notifyDataSetChanged(); // Memberitahu RecyclerView bahwa data telah berubah
     }
 
     public class VH extends RecyclerView.ViewHolder {
@@ -54,16 +40,16 @@ public class FilmAdapter
             this.ivfilm = itemView.findViewById(R.id.ivfilm);
             this.btDetail = itemView.findViewById(R.id.btDetail);
 
-//            this.btDetail.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    int position = getAdapterPosition();
-//                    if (position != RecyclerView.NO_POSITION) {
-//                        Film film = films.get(position);
-//                        PopupHelper.showPopup(context, v, film);
-//                    }
-//                }
-//            });
+            this.btDetail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Film film = films.get(position);
+                        PopupHelper.showPopup(context, v, film);
+                    }
+                }
+            });
 
         }
     }
@@ -76,30 +62,16 @@ public class FilmAdapter
         View vh = LayoutInflater.from(this.context)
                 .inflate(R.layout.row_film, parent, false);
         return new VH(vh);
-
-        }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
+        Film f = this.films.get(position);
         VH vh = (VH) holder;
-        FilmApi.ResultsBean f = this.films.get(position);
-        vh.tvNamaFilm.setText(f.getTitle());
-        vh.tvGenre.setText("Genre: " + f.getOverview());
-        Glide.with(context)
-                .load("https://image.tmdb.org/t/p/w500" + f.getPosterPath())
-                .into(vh.ivfilm);
-
-        // Create a Film object from the Film object
-        Film film = new Film(f.getPaymentMethod(), f.getHargaSewa(), f.getTanggalRent(), f.getTanggalReturn(), f.getStatus());
-
-        // Show the popup when the user clicks the btDetail
-        vh.btDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupHelper.showPopup(context, v, film);
-            }
-        });
+        vh.tvNamaFilm.setText(f.namaFilm.toString());
+        vh.tvGenre.setText(f.genre.toString());
+        vh.ivfilm.setImageBitmap(f.posterfilm);
     }
 
     @Override

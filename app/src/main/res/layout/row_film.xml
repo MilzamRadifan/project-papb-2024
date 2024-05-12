@@ -45,6 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#095DC2"
+        android:textColor="@color/colorHuruf"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="15dp"
         android:text="Detail"

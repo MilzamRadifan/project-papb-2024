@@ -33,6 +33,7 @@
             android:backgroundTint="#095DC2"
             android:clickable="true"
             android:text="Edit Profile"
+            android:textColor="@color/colorHuruf"
             app:layout_constraintTop_toBottomOf="@+id/profileLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
@@ -298,6 +299,7 @@
         android:backgroundTint="#095DC2"
         android:clickable="true"
         android:text="Keluar"
+        android:textColor="@color/colorHuruf"
         app:layout_constraintTop_toBottomOf="@id/menuProfile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
