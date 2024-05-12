@@ -7,11 +7,13 @@
     tools:context=".ProfileActivity"
     android:background="#000519"
     >
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="PROFILE"
+        android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,5 +35,35 @@
         app:itemIconTint="#FBFDFF"
         app:itemTextColor="#FBFDFF"
         />
+
+    <TextView
+        android:id="@+id/tvIdPeminjaman"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/tvIdMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="@+id/tvIdPeminjaman"
+        app:layout_constraintStart_toStartOf="@+id/tvIdPeminjaman"
+        app:layout_constraintTop_toBottomOf="@+id/tvIdPeminjaman" />
+
+    <TextView
+        android:id="@+id/tvTanggalPeminjaman"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="#fff"
+        app:layout_constraintEnd_toEndOf="@+id/tvIdMovie"
+        app:layout_constraintStart_toStartOf="@+id/tvIdMovie"
+        app:layout_constraintTop_toBottomOf="@+id/tvIdMovie" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

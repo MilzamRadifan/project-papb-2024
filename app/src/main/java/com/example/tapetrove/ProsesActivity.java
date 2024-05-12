@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.Serializable;
+
 public class ProsesActivity extends AppCompatActivity {
 
     @Override
@@ -41,12 +43,16 @@ public class ProsesActivity extends AppCompatActivity {
             return false;
         });
         String statusPembayaran = "proses";
+        MovieResults.ResultsBean movie = (MovieResults.ResultsBean) getIntent().getSerializableExtra("film");
+        String namaBank=getIntent().getStringExtra("namaBank");
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 // Memulai aktivitas BerhasilActivity setelah 5 detik
                 Intent intent = new Intent(ProsesActivity.this, BerhasilActivity.class);
-                intent.putExtra("status_pembayaran", statusPembayaran);
+                intent.putExtra("statusPembayaran", statusPembayaran);
+                intent.putExtra("film",(Serializable) movie);
+                intent.putExtra("namaBank", namaBank);
                 startActivity(intent);
                 finish(); // Mengakhiri ProsesActivity setelah memulai BerhasilActivity
             }
