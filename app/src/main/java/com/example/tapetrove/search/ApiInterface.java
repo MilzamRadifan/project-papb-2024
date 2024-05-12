@@ -1,4 +1,4 @@
-package com.example.tapetrove;
+package com.example.tapetrove.search;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

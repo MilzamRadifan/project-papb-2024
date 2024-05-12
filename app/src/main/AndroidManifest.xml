@@ -18,13 +18,10 @@
             android:name=".profile.Profile"
             android:exported="false" />
         <activity
-            android:name=".Peminjaman"
+            android:name=".search.Search"
             android:exported="false" />
         <activity
-            android:name=".Search"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".search.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

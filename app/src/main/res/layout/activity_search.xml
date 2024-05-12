@@ -7,66 +7,52 @@
     android:layout_height="match_parent"
     android:background="#000519"
     android:orientation="vertical"
-    tools:context=".Search">
+    tools:context=".search.Search">
 
-    <EditText
-        android:id="@+id/etSearchForm"
-        android:layout_width="305dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="15dp"
-        android:background="@drawable/bg_round_white"
-        android:ems="10"
-        android:hint="Search"
-        android:inputType="text"
-        android:paddingStart="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/btSearch"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btSearch"
-        android:layout_width="50dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/bg_round_blue"
-        android:text="FIND"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Spinner
-        android:id="@+id/spinSorting"
-        android:layout_width="370dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/bg_round_white"
-        android:paddingStart="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etSearchForm" />
-
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            app:tabIndicatorColor="@color/black"
+            app:tabSelectedTextColor="@color/black">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/searchTab"
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:text="SEARCH" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/sortTab"
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:text="SORT" />
+
+        </com.google.android.material.tabs.TabLayout>
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="409dp"
+        android:layout_height="723dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinSorting">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvSearch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true" />
-
-    </RelativeLayout>
+    </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavBar"

@@ -1,4 +1,4 @@
-package com.example.tapetrove;
+package com.example.tapetrove.search;
 
 import java.util.List;
 

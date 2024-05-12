@@ -1,23 +1,17 @@
-package com.example.tapetrove;
+package com.example.tapetrove.search;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.example.tapetrove.R;
 import com.example.tapetrove.profile.AppDatabase;
 import com.example.tapetrove.profile.Profile;
 import com.example.tapetrove.profile.User;
 import com.example.tapetrove.profile.UserDao;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Inisialisasi database
-        appDatabase = AppDatabase.getInstance(this);
+//        appDatabase = AppDatabase.getInstance(this);
 
-        addUserToDatabase();
+//        addUserToDatabase();
 
 
 // bottom navbar
