@@ -37,8 +37,6 @@ import retrofit2.Retrofit;
  */
 public class SortFragment extends Fragment {
 
-  EditText inputIdentifier;
-  Button btSearch;
   private RecyclerView recyclerView;
   private SearchAdapter searchAdapter;
   RecyclerView.LayoutManager layoutManager;
@@ -48,7 +46,6 @@ public class SortFragment extends Fragment {
   public static int PAGE = 1;
   public static String API_KEY = "f8e9f4c81b4ed42c209634560167e1a9";
   public static String LANGUAGE = "en-US";
-  public String IDENTIFIER;
   public String SORT;
 
   // TODO: Rename parameter arguments, choose names that match

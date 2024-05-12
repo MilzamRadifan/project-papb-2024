@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,6 +56,7 @@ public class Search extends AppCompatActivity   {
 //    Fragment implementation
     FrameLayout frameLayout;
     TabLayout tabLayout;
+    FragmentManager fragmentManager = getSupportFragmentManager();
 
 
     @Override
@@ -65,7 +67,7 @@ public class Search extends AppCompatActivity   {
         frameLayout = (FrameLayout) findViewById(R.id.frameLayout);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new SearchFragment())
+        fragmentManager.beginTransaction().replace(R.id.frameLayout, new SearchFragment())
                 .addToBackStack(null)
                 .commit();
 
@@ -83,9 +85,12 @@ public class Search extends AppCompatActivity   {
                         break;
                 }
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, fragment)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                        .commit();
+                if (fragment != null) {
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.frameLayout, fragment)
+                            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                            .commit();
+                }
             }
 
             @Override
