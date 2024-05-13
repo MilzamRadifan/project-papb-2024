@@ -31,18 +31,8 @@ public class profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         // Cek apakah instance state null, jika iya, inisialisasikan fragment baru
-        if (savedInstanceState == null) {
-            loadProfileFragment();
-        }
+        replaceFragment(new ProfileFragment());
     }
-
-    // Fungsi untuk mengganti fragment ke ProfileFragment
-    private void loadProfileFragment() {
-        Fragment profileFragment = new ProfileFragment();
-        replaceFragment(profileFragment);
-    }
-
-    // Fungsi untuk mengganti fragment pada activity
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_Layouta, fragment);
