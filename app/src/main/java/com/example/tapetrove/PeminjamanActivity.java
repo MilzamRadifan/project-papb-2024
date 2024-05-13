@@ -5,18 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.os.Parcelable;
 import android.view.View;
-import android.view.WindowInsets;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -125,7 +121,6 @@ public class PeminjamanActivity extends AppCompatActivity {
             }
           }
         });
-
 //        bottomNavigationView.setVisibility(View.INVISIBLE);
       }
     };

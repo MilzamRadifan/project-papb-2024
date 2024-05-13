@@ -68,8 +68,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
     @NonNull
-    private static PeminjamanViewModel
-    obtainViewModel(AppCompatActivity activity) {
+    private static PeminjamanViewModel obtainViewModel(AppCompatActivity activity) {
         ViewModelFactory factory =
             ViewModelFactory.getInstance(activity.getApplication());
 

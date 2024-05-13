@@ -15,7 +15,6 @@ import android.os.Message;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
     bottomNavigationView.setSelectedItemId(R.id.home);
+
     bottomNavigationView.setOnItemSelectedListener(item -> {
       if (item.getItemId() == R.id.home) {
         // Handle Home item click
@@ -64,24 +64,24 @@ public class MainActivity extends AppCompatActivity {
       return false;
     });
 
-
-    Film m3gan = Film.createFilmWithDrawable(this, "M3GAN", "Horror / Thriller / Mystery", R.drawable.megan_top, R.drawable.m3gan, false);
-    Film toyStory = Film.createFilmWithDrawable(this, "Toy Story", "Adventure / Animation / Comedy", R.drawable.toystory_top, R.drawable.toystory_poster, false);
-    Film fastX = Film.createFilmWithDrawable(this, "Fast X", "Action / Crime / Adventure", R.drawable.fastx_top, R.drawable.fastx_poster, false);
-    Film mrBeanHoliday = Film.createFilmWithDrawable(this, "Mr.Bean Holiday", "Comedy / Children's Film / Teen", R.drawable.mrbean_top, R.drawable.mrbean_poster, false);
-    Film theNun = Film.createFilmWithDrawable(this, "The Nun", "Horror / Thriller / Mystery", R.drawable.thenun_top, R.drawable.thenun_poster, false);
-    Film titanic = Film.createFilmWithDrawable(this, "Titanic", "Romance / Drama / Documentary", R.drawable.titanic_top, R.drawable.titanic_poster, false);
-    Film ted2 = Film.createFilmWithDrawable(this, "Ted 2", "Comedy", R.drawable.ted2_poster, false);
-    Film sawX = Film.createFilmWithDrawable(this, "SAW X", "Horror / Thriller", R.drawable.sawx_poster, false);
-    Film evilDeadRise = Film.createFilmWithDrawable(this, "Evil Dead Rise", "Horror / Thriller", R.drawable.evildeadrise_poster, false);
-    Film scream = Film.createFilmWithDrawable(this, "Scream", "Horror / Thriller", R.drawable.scream_poster, false);
-    Film texasChainsaw = Film.createFilmWithDrawable(this, "Texas Chainsaw Massacre", "Horror / Thriller", R.drawable.texaschainsaw_poster, false);
-    Film wayOfWater = Film.createFilmWithDrawable(this, "Avatar: The Way of Water", "Adventure / Action", R.drawable.thewayofwater_poster, true);
-    Film endgame = Film.createFilmWithDrawable(this, "Avengers: Endgame", "Super Hero / Action", R.drawable.endgame_poster, true);
-    Film forceAwaken = Film.createFilmWithDrawable(this, "Star Wars: The Force awaken", "Action", R.drawable.theforceawaken_poster, true);
-    Film beautyBeast = Film.createFilmWithDrawable(this, "Beauty & the Beast", "Romance", R.drawable.beautybeast_poster, true);
-    Film rushHour = Film.createFilmWithDrawable(this, " Rush Hour", "Comedy", R.drawable.rushhour_poster, true);
-    Film it = Film.createFilmWithDrawable(this, "IT", "Horror", R.drawable.it_poster, true);
+    /* Menginstansiasi data untuk ditampilkan ke reyclerview */
+//    Film m3gan = Film.createFilmWithDrawable(this, "M3GAN", "Horror / Thriller / Mystery", R.drawable.megan_top, R.drawable.m3gan, false);
+//    Film toyStory = Film.createFilmWithDrawable(this, "Toy Story", "Adventure / Animation / Comedy", R.drawable.toystory_top, R.drawable.toystory_poster, false);
+//    Film fastX = Film.createFilmWithDrawable(this, "Fast X", "Action / Crime / Adventure", R.drawable.fastx_top, R.drawable.fastx_poster, false);
+//    Film mrBeanHoliday = Film.createFilmWithDrawable(this, "Mr.Bean Holiday", "Comedy / Children's Film / Teen", R.drawable.mrbean_top, R.drawable.mrbean_poster, false);
+//    Film theNun = Film.createFilmWithDrawable(this, "The Nun", "Horror / Thriller / Mystery", R.drawable.thenun_top, R.drawable.thenun_poster, false);
+//    Film titanic = Film.createFilmWithDrawable(this, "Titanic", "Romance / Drama / Documentary", R.drawable.titanic_top, R.drawable.titanic_poster, false);
+//    Film ted2 = Film.createFilmWithDrawable(this, "Ted 2", "Comedy", R.drawable.ted2_poster, false);
+//    Film sawX = Film.createFilmWithDrawable(this, "SAW X", "Horror / Thriller", R.drawable.sawx_poster, false);
+//    Film evilDeadRise = Film.createFilmWithDrawable(this, "Evil Dead Rise", "Horror / Thriller", R.drawable.evildeadrise_poster, false);
+//    Film scream = Film.createFilmWithDrawable(this, "Scream", "Horror / Thriller", R.drawable.scream_poster, false);
+//    Film texasChainsaw = Film.createFilmWithDrawable(this, "Texas Chainsaw Massacre", "Horror / Thriller", R.drawable.texaschainsaw_poster, false);
+//    Film wayOfWater = Film.createFilmWithDrawable(this, "Avatar: The Way of Water", "Adventure / Action", R.drawable.thewayofwater_poster, true);
+//    Film endgame = Film.createFilmWithDrawable(this, "Avengers: Endgame", "Super Hero / Action", R.drawable.endgame_poster, true);
+//    Film forceAwaken = Film.createFilmWithDrawable(this, "Star Wars: The Force awaken", "Action", R.drawable.theforceawaken_poster, true);
+//    Film beautyBeast = Film.createFilmWithDrawable(this, "Beauty & the Beast", "Romance", R.drawable.beautybeast_poster, true);
+//    Film rushHour = Film.createFilmWithDrawable(this, " Rush Hour", "Comedy", R.drawable.rushhour_poster, true);
+//    Film it = Film.createFilmWithDrawable(this, "IT", "Horror", R.drawable.it_poster, true);
 
     /* Menampilkan poster film horizontal menggunakan Arraylist */
 //    this.dataTopPoster = new ArrayList<Film>();
@@ -196,6 +196,9 @@ public class MainActivity extends AppCompatActivity {
 //        new PosterAdapter(MainActivity.this, this.dataPosterTopRating);
 //    this.rvPosterTopRating.setLayoutManager(lmPosterHorror);
 //    this.rvPosterTopRating.setAdapter(posterHorrorAdapter);
+
+    /* Menjalankan thread untuk mengambil data sedan tayang dari API TMDB menggunakan HTTPURLCONNECTION */
+    /* Serta menampilkan poster horizontal dari data yang telah diambil menggunakan RecyclerView */
     Handler hTopPoster = new Handler(Looper.getMainLooper()) {
       @Override
       public void handleMessage(@NonNull Message msg) {

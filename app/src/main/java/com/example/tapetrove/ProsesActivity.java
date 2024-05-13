@@ -42,6 +42,7 @@ public class ProsesActivity extends AppCompatActivity {
             }
             return false;
         });
+
         String statusPembayaran = "proses";
         MovieResults.ResultsBean movie = (MovieResults.ResultsBean) getIntent().getSerializableExtra("film");
         String namaBank=getIntent().getStringExtra("namaBank");

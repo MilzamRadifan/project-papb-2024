@@ -2,6 +2,7 @@ package com.example.tapetrove;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.VH> {
@@ -41,10 +41,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.VH> {
                     MovieResults.ResultsBean movie= movies.get(position);
                     // Memulai aktivitas baru dengan Intent
 
-                    Intent intent = new Intent(context, PeminjamanActivity.class);
-                    intent.putExtra("film", (Serializable) movie);
+//                    Intent intent = new Intent(context, PeminjamanActivity.class);
+//                    intent.putExtra("film",  movie);
+//                    context.startActivity(intent);
 
-                    context.startActivity(intent);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("film", movie);
+                    // Panggil metode untuk mengganti fragment dan kirim Bundle ke fragment peminjaman
+                    ((HomeActivity) context).replaceFragmentWithBundle(new PeminjamanFragment(), bundle);
                 }
             });
         }
