@@ -15,6 +15,9 @@
         android:theme="@style/Theme.TapeTrove"
         tools:targetApi="31">
         <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".WishlistActivity"
             android:exported="true" />
         <activity
@@ -24,7 +27,7 @@
             android:name=".RatingActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".EvalActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
