@@ -49,15 +49,18 @@ public class SignUpActivity extends AppCompatActivity {
                             User newUser = new User(0, username, password, email, notelpon, address);
                             userDao.insertUser(newUser);
 
-                            // Navigasi ke Activity Profile dan kirim data pengguna
-                            Intent profileIntent = new Intent(SignUpActivity.this, profile.class);
-                            profileIntent.putExtra("username", username);
-                            profileIntent.putExtra("email", email);
-                            profileIntent.putExtra("notelpon", notelpon);
-                            profileIntent.putExtra("address", address);
-                            startActivity(profileIntent);
-                            Toast.makeText(SignUpActivity.this, "Anda Berhasil SignUp", Toast.LENGTH_SHORT).show();
-                            finish(); // Optional: menutup SignUpActivity agar tidak kembali lagi
+                            // Kirim data pengguna ke MainActivity menggunakan Bundle
+                            Bundle userData = new Bundle();
+                            userData.putString("username", username);
+                            userData.putString("email", email);
+                            userData.putString("notelpon", notelpon);
+                            userData.putString("address", address);
+
+                            Intent mainIntent = new Intent(SignUpActivity.this, MainActivity.class);
+                            mainIntent.putExtra("userData", userData);
+                            startActivity(mainIntent);
+                            Toast.makeText(SignUpActivity.this, "Berhasil mendaftar", Toast.LENGTH_SHORT).show();
+                            finish();
                         } else {
                             Toast.makeText(SignUpActivity.this, "User telah Terdaftar, LOGIN", Toast.LENGTH_SHORT).show();
                         }

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".EditProfileFragment"
+    android:background="#000519"
+    android:id="@+id/frame_Layout2">
+
+    <!-- TODO: Update blank fragment layout -->
+
+            <ImageView
+                android:id="@+id/logoapp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:padding="2dp"
+                android:backgroundTint="#FFFFFF"
+                android:src="@drawable/logoapp"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:layout_marginTop="150dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/logoapp">
+
+                <EditText
+                    android:id="@+id/etUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_input"
+                    android:hint="Username"
+                    android:inputType="text"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="#767676" />
+
+                <EditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_input"
+                    android:hint="Email Address"
+                    android:inputType="textEmailAddress"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="#767676" />
+
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_input"
+                    android:drawableRight="@drawable/ic_lock"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="#767676" />
+
+                <EditText
+                    android:id="@+id/etnomorhp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_input"
+                    android:hint="Nomor Telepon"
+                    android:inputType="text|phone"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="#767676" />
+
+                <EditText
+                    android:id="@+id/etAlamat"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_input"
+                    android:hint="Alamat"
+                    android:inputType="text"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="20dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textColorHint="#767676" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btSimpan"
+                android:layout_width="199dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="110dp"
+                android:layout_marginTop="540dp"
+                android:backgroundTint="#095DC2"
+                android:clickable="true"
+                android:textColor="@color/colorHuruf"
+                android:text="Simpan Perubahan" />
+
+            <Button
+                android:id="@+id/btCancel"
+                android:layout_width="125dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="150dp"
+                android:layout_marginTop="590dp"
+                android:backgroundTint="#AEC2DA"
+                android:clickable="true"
+                android:textColor="@color/colorHuruf"
+                android:text="Keluar" />
+
+</FrameLayout>
