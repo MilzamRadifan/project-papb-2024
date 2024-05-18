@@ -10,11 +10,7 @@
         android:icon="@drawable/share"
         android:id="@+id/bottom_bagikan"/>
     <item
-        android:title="Rate"
+        android:title="Rate and Comment"
         android:icon="@drawable/star"
         android:id="@+id/bottom_rating"/>
-    <item
-        android:title="Comment"
-        android:icon="@drawable/message"
-        android:id="@+id/bottom_komentar"/>
 </menu>

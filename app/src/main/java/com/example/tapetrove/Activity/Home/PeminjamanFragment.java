@@ -1,5 +1,6 @@
 package com.example.tapetrove.Activity.Home;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,8 @@ import com.example.tapetrove.Api.Genre;
 import com.example.tapetrove.Api.MovieResults;
 import com.example.tapetrove.Api.Trailer;
 import com.example.tapetrove.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -149,6 +152,26 @@ public class PeminjamanFragment extends Fragment {
             Thread tGenre = new GenreThread(hGenre);
             tGenre.start();
             Button btnSewa = view.findViewById(R.id.buttonSewa);
+            BottomNavigationView peminjamanMenu = view.findViewById(R.id.peminjaman_menu);
+            peminjamanMenu.setOnItemSelectedListener(item -> {
+                if (item.getItemId() == R.id.bottom_wishlist) {
+//                    Wishlist Fragment
+                } else if (item.getItemId() == R.id.bottom_bagikan) {
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Ayo sewa film "+title+", hanya Rp.30.000 di aplikasi TaveTrove");
+                    sendIntent.setType("text/plain");
+                    Intent shareIntent = Intent.createChooser(sendIntent, null);
+                    startActivity(shareIntent);
+                    return true;
+                } else if (item.getItemId() == R.id.bottom_rating) {
+//                    Rating Fragment
+                }
+//              else if (item.getItemId() == R.id.bottom_komentar) {
+//                    Comment Fragment
+//                }
+                return false;
+            });
             btnSewa.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
