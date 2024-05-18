@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "860853048952",
+    "project_id": "tapetrove-8fcd1",
+    "storage_bucket": "tapetrove-8fcd1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860853048952:android:22566aba4665533f9aff8d",
+        "android_client_info": {
+          "package_name": "com.example.tapetrove"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYWu6rzyX3dSZz4jsStNri1Nl39Bqy8uo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
