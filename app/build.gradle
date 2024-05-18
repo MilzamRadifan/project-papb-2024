@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.tapetrove"
-        minSdk 23
+        minSdk 31
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -39,7 +39,7 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
-
+    implementation 'com.google.android.material:material:1.9.0'
 
 //  retrofit implementation
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'

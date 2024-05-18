@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Wishlist"
+        android:icon="@drawable/plus"
+        android:id="@+id/bottom_wishlist"/>
+    <item
+        android:title="Share"
+        android:icon="@drawable/share"
+        android:id="@+id/bottom_bagikan"/>
+    <item
+        android:title="Rate"
+        android:icon="@drawable/star"
+        android:id="@+id/bottom_rating"/>
+    <item
+        android:title="Comment"
+        android:icon="@drawable/message"
+        android:id="@+id/bottom_komentar"/>
+</menu>

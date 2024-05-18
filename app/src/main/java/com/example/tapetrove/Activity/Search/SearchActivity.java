@@ -4,16 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.tapetrove.MainActivity;
+import com.example.tapetrove.Activity.Home.MainActivity;
 import com.example.tapetrove.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -84,7 +80,7 @@ public class SearchActivity extends AppCompatActivity {
       } else if (item.getItemId() == R.id.profile) {
         // Handle Profile item click
 //        startActivity(new Intent(getApplicationContext(), Profile.class));
-        finish();
+//        finish();
         return true;
       }
       return false;

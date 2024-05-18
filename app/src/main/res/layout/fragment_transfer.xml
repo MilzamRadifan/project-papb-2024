@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Home.TransferFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000519"
+        >
+
+        <TextView
+            android:id="@+id/tvTransfer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="28dp"
+            android:text="Transfer Melalui Bank BNI"
+            android:textColor="#fbfdff"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTransferEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="budisetiawan@gmail.com"
+            android:textColor="#FBFDFF"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@+id/tvTransfer"
+            app:layout_constraintTop_toBottomOf="@+id/tvTransfer" />
+
+        <ImageView
+            android:id="@+id/ivTransferPoster"
+            android:layout_width="109dp"
+            android:layout_height="159dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="@+id/tvTransferEmail"
+            app:layout_constraintTop_toBottomOf="@+id/tvTransferEmail"
+            app:srcCompat="@drawable/m3gan" />
+
+        <TextView
+            android:id="@+id/tvTransferTitle"
+            android:layout_width="278dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="12dp"
+
+            android:text="M3GAN"
+            android:textColor="#fbfdff"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/ivTransferPoster"
+            app:layout_constraintTop_toBottomOf="@+id/tvTransferEmail" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/textView16"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="5dp"-->
+        <!--            android:text="Durasi: "-->
+        <!--            android:textColor="#fbfdff"-->
+        <!--            android:textSize="15sp"-->
+        <!--            android:textStyle="bold"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/tvTransferTitle"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/tvTransferTitle" />-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/tvTransferDuration"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="5dp"-->
+        <!--            android:text="1h 42m"-->
+        <!--            android:textColor="#fbfdff"-->
+        <!--            android:textSize="15sp"-->
+        <!--            app:layout_constraintStart_toEndOf="@+id/textView16"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/tvTransferTitle" />-->
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+
+            android:text="Genre: "
+            android:textColor="#fbfdff"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/tvTransferTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvTransferTitle" />
+
+        <TextView
+            android:id="@+id/tvTransferGenre"
+            android:layout_width="230dp"
+            android:layout_height="wrap_content"
+            android:textColor="#fbfdff"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/textView18"
+            app:layout_constraintTop_toTopOf="@+id/textView18"
+            tools:text="Horror, Thriller, Mystery" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tahun Rilis: "
+            android:textColor="#fbfdff"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textView18"
+            app:layout_constraintTop_toBottomOf="@+id/tvTransferGenre" />
+
+        <TextView
+            android:id="@+id/tvTransferYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2023"
+            android:textColor="#fbfdff"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/textView20"
+            app:layout_constraintTop_toBottomOf="@+id/tvTransferGenre" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/textView22"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="Rating Usia: "-->
+        <!--            android:textColor="#fbfdff"-->
+        <!--            android:textSize="15sp"-->
+        <!--            android:textStyle="bold"-->
+        <!--            app:layout_constraintStart_toStartOf="@+id/textView20"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/textView20" />-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/tvTransferAge"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="15+"-->
+        <!--            android:textColor="#fbfdff"-->
+        <!--            android:textSize="15sp"-->
+        <!--            app:layout_constraintStart_toEndOf="@+id/textView22"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/tvTransferYear" />-->
+
+        <TextView
+            android:id="@+id/textView24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Skor Film: "
+            android:textColor="#fbfdff"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textView20"
+            app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+        <TextView
+            android:id="@+id/tvTransferScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.2"
+            android:textColor="#fbfdff"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/textView24"
+            app:layout_constraintTop_toTopOf="@+id/textView24" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Harga Sewa: "
+            android:textColor="#fbfdff"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textView24"
+            app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+        <TextView
+            android:id="@+id/tvTransferPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rp. 30.000"
+            android:textColor="#fbfdff"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/textView26"
+            app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="10dp"
+            android:background="#FBFDFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivTransferPoster" />
+
+        <TextView
+            android:id="@+id/tvTransferKeterangan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="12dp"
+            android:text="Anda akan menyewa film ini selama seminggu, dengan biaya penyewaan sebesar Rp.30.000. Segala bentuk keterlambatan pengembalian akan dikenakan denda sebesar Rp.5.000 per-harinya. Jika anda setuju melanjutkan silahkan transfer ke nomor rekening berikut 1480325238. Setelah membayar, transaksi anda akan diproses terlebih dahulu, proses ini akan berlangsung selama beberapa menit. "
+            android:textAlignment="viewStart"
+            android:textColor="#fbfdff"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/view"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/view"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp"
+            android:background="#FBFDFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTransferKeterangan" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="12dp"
+            android:backgroundTint="@color/blue"
+            android:text="Bayar Melalui Bank BNI"
+            android:textColor="#fbfdff"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/view4"
+            app:layout_constraintStart_toStartOf="@+id/view4"
+            app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="12dp"
+            android:backgroundTint="@color/white"
+            android:text="Batalkan"
+            android:textColor="#000519"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/button2"
+            app:layout_constraintStart_toStartOf="@+id/button2"
+            app:layout_constraintTop_toBottomOf="@+id/button2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

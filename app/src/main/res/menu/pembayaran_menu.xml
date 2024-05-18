@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+
+        android:title="QRIS"
+        android:id="@+id/nav_qris"
+        android:icon="@drawable/qris"
+        />
+    <item
+
+        android:title="BNI"
+        android:id="@+id/nav_bni"
+        android:icon="@drawable/bni"
+        />
+    <item
+
+        android:title="MANDIRI"
+        android:id="@+id/nav_mandiri"
+        android:icon="@drawable/mandiri"
+        />
+    <item
+
+        android:title="BCA"
+        android:id="@+id/nav_bca"
+        android:icon="@drawable/bca"
+        />
+    <item
+
+        android:title="BRI"
+        android:id="@+id/nav_bri"
+        android:icon="@drawable/bri"
+        />
+</menu>
