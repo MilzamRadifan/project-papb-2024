@@ -165,11 +165,10 @@ public class PeminjamanFragment extends Fragment {
                     startActivity(shareIntent);
                     return true;
                 } else if (item.getItemId() == R.id.bottom_rating) {
-//                    Rating Fragment
+                    Bundle bundleRating = new Bundle();
+                    bundleRating.putInt("idFilm", movie.getId());
+                    ((MainActivity) getContext()).replaceFragmentWithBundle(new RatingFragment(), bundleRating);
                 }
-//              else if (item.getItemId() == R.id.bottom_komentar) {
-//                    Comment Fragment
-//                }
                 return false;
             });
             btnSewa.setOnClickListener(new View.OnClickListener() {
