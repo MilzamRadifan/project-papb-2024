@@ -5,4 +5,5 @@
     <string name="profile">Profile</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_web_client_id">"860853048952-5ghsg6mju2nha5slppghl12o4ih3nbql.apps.googleusercontent.com"</string>
 </resources>

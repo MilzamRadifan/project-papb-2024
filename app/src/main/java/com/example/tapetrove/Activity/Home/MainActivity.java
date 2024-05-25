@@ -10,12 +10,22 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
+import com.example.tapetrove.Activity.Authentication.SignInActivity;
 import com.example.tapetrove.Activity.Search.SearchActivity;
 import com.example.tapetrove.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +58,21 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
+//        FirebaseAuth.getInstance().signOut();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        if (user == null) {
+            Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+            startActivity(intent);
+            finish();
+        } else Toast.makeText(MainActivity.this, "Selamat datang " + user.getEmail(), Toast.LENGTH_SHORT).show();
+//
+//
+//        firebaseDatabase = FirebaseDatabase.getInstance();
+//        databaseReference = firebaseDatabase.getReference();
     }
+
+
 
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
