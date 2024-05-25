@@ -30,17 +30,8 @@ public class PeminjamanFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1,
-            mParam2;
-
-    private TextView tvTitle,
-            tvGenre,
-            tvScore,
-            tvRating,
-            tvYear,
-            tvDuration,
-            tvSynopsis;
+    private String mParam1, mParam2;
+    private TextView tvTitle, tvGenre, tvScore, tvRating, tvYear, tvDuration, tvSynopsis;
     private WebView webView;
 
     public PeminjamanFragment() {
@@ -151,11 +142,15 @@ public class PeminjamanFragment extends Fragment {
             };
             Thread tGenre = new GenreThread(hGenre);
             tGenre.start();
+
             Button btnSewa = view.findViewById(R.id.buttonSewa);
             BottomNavigationView peminjamanMenu = view.findViewById(R.id.peminjaman_menu);
             peminjamanMenu.setOnItemSelectedListener(item -> {
                 if (item.getItemId() == R.id.bottom_wishlist) {
-//                    Wishlist Fragment
+                    Intent intent = new Intent();
+                    intent.putExtra(Intent.EXTRA_TEXT, movie.getTitle());
+
+
                 } else if (item.getItemId() == R.id.bottom_bagikan) {
                     Intent sendIntent = new Intent();
                     sendIntent.setAction(Intent.ACTION_SEND);
