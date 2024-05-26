@@ -149,8 +149,6 @@ public class PeminjamanFragment extends Fragment {
                 if (item.getItemId() == R.id.bottom_wishlist) {
                     Intent intent = new Intent();
                     intent.putExtra(Intent.EXTRA_TEXT, movie.getTitle());
-
-
                 } else if (item.getItemId() == R.id.bottom_bagikan) {
                     Intent sendIntent = new Intent();
                     sendIntent.setAction(Intent.ACTION_SEND);
