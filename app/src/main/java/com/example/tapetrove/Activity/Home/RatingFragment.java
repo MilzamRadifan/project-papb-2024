@@ -65,6 +65,7 @@ public class RatingFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putString("title", title);
             bundle.putInt("idFilm", idFilm);
+            bundle.putFloat("rating", rating);
 
             ReviewFragment reviewFragment = new ReviewFragment();
             reviewFragment.setArguments(bundle);
