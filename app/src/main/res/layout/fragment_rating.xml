@@ -54,4 +54,15 @@
         android:background="@drawable/bg_button_white"
         android:text="Kirim Rating" />
 
+    <Button
+        android:id="@+id/btnDeleteRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnSubmit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="30dp"
+        android:background="@drawable/bg_button_white"
+        android:text="Hapus Rating"
+        android:visibility="gone" />
 </RelativeLayout>
