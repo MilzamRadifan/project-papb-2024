@@ -11,9 +11,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.tapetrove.Database.Rating;
 import com.example.tapetrove.R;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +23,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ReviewFragment extends Fragment {
 
@@ -38,7 +43,6 @@ public class ReviewFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference("rating").child(String.valueOf(idFilm));
 
         String userName = firebaseUser.getEmail();
         String userId = firebaseUser.getUid();
@@ -53,8 +57,8 @@ public class ReviewFragment extends Fragment {
             rating = 0;
         }
 
+        databaseReference = FirebaseDatabase.getInstance().getReference("ratings").child(String.valueOf(idFilm)).child(userId);
         Button btnSubmit = view.findViewById(R.id.btnSubmit);
-        etReview.setText(review);
 
         btnSubmit.setOnClickListener(v -> {
             review = etReview.getText().toString();
@@ -63,27 +67,26 @@ public class ReviewFragment extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            Rating existingRating = dataSnapshot.getValue(Rating.class);
-                            if (existingRating != null) {
-                                existingRating.setRating(rating);
-                                existingRating.setComment(review);
-                                databaseReference.setValue(existingRating)
-                                        .addOnCompleteListener(task -> {
-                                            if (task.isSuccessful()) {
-                                                showToast("Komentar Diperbarui! Lanjut Eksplor Film Lainnya yaa");
-                                            } else {
-                                                showToast("Gagal mengirim komentar");
-                                            }
-                                        });
-                            }
+                            Map<String, Object> updateData = new HashMap<>();
+                            updateData.put("rating", rating);
+                            updateData.put("comment", review);
+                            databaseReference.updateChildren(updateData)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            showToast("Review updated");
+                                            returnTwice();
+                                        }
+                                    });
                         } else {
                             Rating rate = new Rating(userId, idFilm, userName, rating, review);
                             databaseReference.setValue(rate)
                                     .addOnCompleteListener(task -> {
                                         if (task.isSuccessful()) {
-                                            showToast("Komentar Terkirim! Lanjut Eksplor Film Lainnya yaa");
+                                            showToast("Rating and Review Sent! Let's Explore More Films");
+                                            returnTwice();
                                         } else {
-                                            showToast("Gagal mengirim komentar");
+                                            showToast("Failed to post, Try again");
                                         }
                                     });
                         }
@@ -102,5 +105,10 @@ public class ReviewFragment extends Fragment {
     private void showToast(String message) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
     }
-}
 
+    private void returnTwice() {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.popBackStack();
+        fragmentManager.popBackStack();
+    }
+}
