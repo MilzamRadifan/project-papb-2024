@@ -22,8 +22,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
 
@@ -58,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
-//        FirebaseAuth.getInstance().signOut();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         if (user == null) {
@@ -66,10 +63,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         } else Toast.makeText(MainActivity.this, "Selamat datang " + user.getEmail(), Toast.LENGTH_SHORT).show();
-//
-//
-//        firebaseDatabase = FirebaseDatabase.getInstance();
-//        databaseReference = firebaseDatabase.getReference();
     }
 
 

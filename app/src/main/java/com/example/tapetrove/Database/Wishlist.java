@@ -3,11 +3,11 @@ package com.example.tapetrove.Database;
 public class Wishlist {
   private String key;
   private String userId;
-  private String movieId;
+  private int movieId;
   public Wishlist(){
   }
 
-  public Wishlist(String userId, String movieId) {
+  public Wishlist(String userId, int movieId) {
     this.userId = userId;
     this.movieId = movieId;
   }
@@ -28,11 +28,11 @@ public class Wishlist {
     this.userId = userId;
   }
 
-  public String getMovieId() {
+  public int getMovieId() {
     return movieId;
   }
 
-  public void setMovieId(String movieId) {
+  public void setMovieId(int movieId) {
     this.movieId = movieId;
   }
 }
