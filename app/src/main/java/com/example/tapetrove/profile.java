@@ -9,9 +9,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.room.Room;
 
@@ -19,115 +21,155 @@ import com.bumptech.glide.Glide;
 
 public class profile extends AppCompatActivity {
 
-//    private TextView tvUsername, tvEmail;
-//    private ImageButton ibAvatar;
-//    private UserDatabase userDb;
-//    private UserDao userDao;
-//    private pilihGambarProfile pilihGambar;
+    private TextView tvUsername, tvEmail;
+    private ImageButton ibAvatar;
+    private UserDatabase userDb;
+    private UserDao userDao;
+    private User user;
+    private pilihGambarProfile pilihGambar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        // Cek apakah instance state null, jika iya, inisialisasikan fragment baru
-        if (savedInstanceState == null) {
-            loadProfileFragment();
+        tvUsername = findViewById(R.id.tvUsername);
+        tvEmail = findViewById(R.id.tvEmail);
+        Button btEdit = findViewById(R.id.btEdit);
+        Button btOut = findViewById(R.id.btOut);
+        ibAvatar = findViewById(R.id.ibAvatar);
+        LinearLayout content6 = findViewById(R.id.content6);
+
+        userDb = Room.databaseBuilder(this, UserDatabase.class, "user")
+                .fallbackToDestructiveMigration()
+                .build();
+        userDao = userDb.getDao(); // Menggunakan getDao()
+
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("username");
+        loadUserData(username);
+
+        pilihGambar = new pilihGambarProfile(this, ibAvatar);
+
+        btEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (user != null) {
+                    EditProfileFragment editProfileFragment = EditProfileFragment.newInstance(
+                            user.getUsername(),
+                            user.getEmail(),
+                            user.getPassword(),
+                            user.getTelephone(),
+                            user.getAddress()
+                    );
+                    replaceFragment(editProfileFragment);
+                }
+            }
+        });
+
+        btOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Implement logout functionality
+            }
+        });
+
+        content6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new historyRentFragment());
+            }
+        });
+
+        ibAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pilihGambar.showDialog();
+            }
+        });
+    }
+
+    private void loadUserData(String username) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                user = userDao.getUserByUsername(username);
+                if (user != null) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tvUsername.setText(user.getUsername());
+                            tvEmail.setText(user.getEmail());
+
+                            // Mendapatkan URL gambar dari Firebase Database dan menampilkannya
+                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("profileImageUrl");
+                            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    String imageUrl = dataSnapshot.getValue(String.class);
+                                    if (imageUrl != null) {
+                                        Glide.with(profile.this).load(imageUrl).into(ibAvatar);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    // Tangani error
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        }).start();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            Uri selectedImageUri = null;
+            if (requestCode == REQUEST_CODE_GALLERY && data != null) {
+                selectedImageUri = data.getData();
+            } else if (requestCode == REQUEST_CODE_CAMERA) {
+                selectedImageUri = pilihGambarProfile.getImageUri();
+            }
+
+            if (selectedImageUri != null) {
+                pilihGambar.saveImage(selectedImageUri);
+            }
+        }
+
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            String newUsername = data.getStringExtra("newusername");
+            String newEmail = data.getStringExtra("newemail");
+            String newNoTelpon = data.getStringExtra("newnotelpon");
+            String newAlamat = data.getStringExtra("newalamat");
+
+            tvUsername.setText(newUsername);
+            tvEmail.setText(newEmail);
+
+            user.setUsername(newUsername);
+            user.setEmail(newEmail);
+            user.setTelephone(newNoTelpon);
+            user.setAddress(newAlamat);
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    userDao.updateUser(user);
+                }
+            }).start();
         }
     }
 
-    // Fungsi untuk mengganti fragment ke ProfileFragment
-    private void loadProfileFragment() {
-        Fragment profileFragment = new ProfileFragment();
-        replaceFragment(profileFragment);
-    }
-
-    // Fungsi untuk mengganti fragment pada activity
     private void replaceFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_Layouta, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frame_Layouta, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }
-//        tvUsername = findViewById(R.id.tvUsername);
-//        tvEmail = findViewById(R.id.tvEmail);
-//        Button btEdit = findViewById(R.id.btEdit);
-//        Button btOut = findViewById(R.id.btOut);
-//        ibAvatar = findViewById(R.id.ibAvatar);
-//        LinearLayout content6 = findViewById(R.id.content6);
-//
-//        // Inisialisasi database dan userDao
-//        userDb = Room.databaseBuilder(this, UserDatabase.class, "user")
-//                .allowMainThreadQueries()
-//                .fallbackToDestructiveMigration()
-//                .build();
-//        userDao = userDb.getDao();
-//
-//        // Mendapatkan data pengguna dari database
-//        String username = getIntent().getStringExtra("username");
-//        User user = userDao.getUserByUsername(username);
-//        if (user != null) {
-//            tvUsername.setText(user.getUsername());
-//            tvEmail.setText(user.getEmail());
-//        }
-//
-//        // Inisialisasi objek pilihGambar
-//        pilihGambar = new pilihGambarProfile(this, ibAvatar);
-//
-//        btEdit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent editProfileIntent = new Intent(profile.this, editProfile.class);
-//                editProfileIntent.putExtra("username", user.getUsername());
-//                editProfileIntent.putExtra("email", user.getEmail());
-//                editProfileIntent.putExtra("notelpon", user.getTelephone());
-//                editProfileIntent.putExtra("alamat", user.getAddress());
-//                startActivityForResult(editProfileIntent, 1);
-//            }
-//        });
-//
-//        btOut.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(profile.this, MainActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        content6.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(profile.this, historyRent.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        ibAvatar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                pilihGambar.showDialog();
-//            }
-//        });
-//    }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
-//            String newUsername = data.getStringExtra("newusername");
-//            String newEmail = data.getStringExtra("newemail");
-//            String newNoTelpon = data.getStringExtra("newnotelpon");
-//            String newAlamat = data.getStringExtra("newalamat");
-//
-//            // Update tampilan profil dengan data yang diperbarui
-//            tvUsername.setText(newUsername);
-//            tvEmail.setText(newEmail);
-//
-//            // Update data pengguna di database (jika perlu)
-//            User updatedUser = new User(0, newUsername, newEmail, "", newNoTelpon, newAlamat);
-//            userDao.updateUser(updatedUser);
-//        }
-//    }
-//}

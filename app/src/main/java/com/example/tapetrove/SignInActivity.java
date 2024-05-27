@@ -26,7 +26,9 @@ public class SignInActivity extends AppCompatActivity {
         binding = ActivitySignInBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         userDb = Room.databaseBuilder(this,UserDatabase.class, "user")
-                .allowMainThreadQueries().fallbackToDestructiveMigration().build();
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build();
         userDao = userDb.getDao();
 
         binding.btSignin.setOnClickListener(new View.OnClickListener() {
@@ -36,14 +38,8 @@ public class SignInActivity extends AppCompatActivity {
                 String password = binding.etPassword.getText().toString().trim();
 
                 // Cek apakah input email atau username kosong
-                if (emailOrUsername.isEmpty()) {
+                if (emailOrUsername.isEmpty() || password.isEmpty()) {
                     Toast.makeText(SignInActivity.this, "Please enter email or username", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                // Cek apakah input password kosong
-                if (password.isEmpty()) {
-                    Toast.makeText(SignInActivity.this, "Please enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -58,6 +54,8 @@ public class SignInActivity extends AppCompatActivity {
                     // Jika user ditemukan, tampilkan pesan berhasil login
                     Toast.makeText(SignInActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(SignInActivity.this, profile.class);
+                    intent.putExtra("username", user.getUsername());
+                    intent.putExtra("email", user.getEmail());
                     startActivity(intent);
                 } else {
                     // Jika user tidak ditemukan, tampilkan pesan gagal login
