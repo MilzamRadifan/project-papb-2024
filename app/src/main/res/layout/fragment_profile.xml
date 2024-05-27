@@ -52,5 +52,16 @@
             app:layout_constraintStart_toStartOf="@+id/tvIdMovie"
             app:layout_constraintTop_toBottomOf="@+id/tvIdMovie" />
 
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="Logout"
+            app:layout_constraintEnd_toEndOf="@+id/tvTanggalPeminjaman"
+            app:layout_constraintHorizontal_bias="0.515"
+            app:layout_constraintStart_toStartOf="@+id/tvTanggalPeminjaman"
+            app:layout_constraintTop_toBottomOf="@+id/tvTanggalPeminjaman" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -26,6 +26,7 @@ public class FilmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //        this.context = context;
 //        this.films = films;
 //    }
+
   public FilmAdapter(Context context, List<MovieResults.ResultsBean> movies) {
     this.context = context;
     this.movies = movies;
@@ -55,7 +56,8 @@ public class FilmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 //          context.startActivity(intent);
 
           Bundle bundle = new Bundle();
-          bundle.putSerializable("film", movie);
+//          bundle.putSerializable("film", movie);
+          bundle.putInt("idFilm",movie.getId());
           ((HomeActivity) context).replaceFragmentWithBundle(new PeminjamanFragment(), bundle);
         }
       });

@@ -1,11 +1,21 @@
 package com.example.tapetrove;
-
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -15,9 +25,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,8 +52,19 @@ public class TransferFragment extends Fragment {
   private TextView setBank;
   private TextView setKeterangan;
   private Button setButton;
+  Button button;
   private TextView setJudul;
   private TextView setScore;
+  private TextView setRating;
+  private TextView rating;
+  private TextView setGenre;
+  private TextView setEmail;
+  private FirebaseAuth mAuth;
+  private static final int WRITE_EXTERNAL_STORAGE_PERMISSION_CODE = 1;
+
+  private SingleMovieResults singleMovieResults;
+  private int idFilm;
+  private List<SingleMovieResults.GenresBean> listGenre;
 
   // TODO: Rename and change types of parameters
   private String mParam1;
@@ -83,7 +111,12 @@ public class TransferFragment extends Fragment {
     setButton = view.findViewById(R.id.button2);
     setJudul = view.findViewById(R.id.tvTransferTitle);
     setScore = view.findViewById(R.id.tvTransferScore);
-
+    setGenre= view.findViewById(R.id.tvTransferGenre);
+    button = view.findViewById(R.id.button);
+    setRating=view.findViewById(R.id.tvTransferRating);
+    rating=view.findViewById(R.id.textView5);
+    setEmail=view.findViewById(R.id.tvTransferEmail);
+    mAuth = FirebaseAuth.getInstance();
     return view;
   }
 
@@ -93,57 +126,66 @@ public class TransferFragment extends Fragment {
 
     Bundle bundle = getArguments();
     if (bundle != null) {
-      MovieResults.ResultsBean movie = (MovieResults.ResultsBean) bundle.getSerializable("film");
+      //MovieResults.ResultsBean movie = (MovieResults.ResultsBean) bundle.getSerializable("film");
+      idFilm = bundle.getInt("idFilm");
       String namaBank = bundle.getString("namaBank");
 
-      if (getArguments() != null) {
-        List<Integer> genre_ids = movie.getGenre_ids();
-        List<String> movieGenres = new ArrayList<>();
+      FirebaseUser currentUser = mAuth.getCurrentUser();
+      setEmail.setText(currentUser.getEmail());
 
-        if (namaBank != null) {
-          setBank.setText("Transfer Melalui " + namaBank);
-          setButton.setText("Bayar Melalui " + namaBank);
-          setJudul.setText(movie.getTitle());
-          setScore.setText("★ " + String.format("%.1f", movie.getVote_average()));
-          Handler hGenre = new Handler(Looper.getMainLooper()) {
-            String formattedGenre;
-            TextView setGenre = view.findViewById(R.id.tvTransferGenre);
 
-            @Override
-            public void handleMessage(@NonNull Message msg) {
-              super.handleMessage(msg);
-              Genre genre = (Genre) msg.obj;
-              List<Genre.GenresBean> results = genre.getGenres();
-
-              for (Integer genreId : genre_ids) {
-                for (Genre.GenresBean genresBean : results) {
-                  if (genresBean.getId() == genreId) {
-                    movieGenres.add(genresBean.getName());
-                  }
-                }
+      Handler hSingleMovie =new Handler(Looper.getMainLooper()){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+          super.handleMessage(msg);
+          singleMovieResults = (SingleMovieResults) msg.obj;
+          listGenre = singleMovieResults.getGenres();
+//        List<Integer> genre_ids = movie.getGenre_ids();
+//        List<String> movieGenres = new ArrayList<>();
+            String genre= listGenre.get(0).getName();
+            for (int i = 1; i < listGenre.size() ; i++) {
+              genre = genre + " | " + listGenre.get(i).getName();
+            }
+            if (namaBank != null) {
+              setBank.setText("Transfer Melalui " + namaBank);
+              setButton.setText("Bayar Melalui " + namaBank);
+              setJudul.setText(singleMovieResults.getTitle());
+              setScore.setText("★ " + String.format("%.1f", singleMovieResults.getVote_average()));
+              setGenre.setText(genre);
+              if(singleMovieResults.isAdult()){
+                setRating.setText("21+");
+              }else{
+                setRating.setVisibility(View.INVISIBLE);
+                rating.setVisibility(View.INVISIBLE);
               }
-              formattedGenre = movieGenres.get(0);
-              for (int i = 1; i < movieGenres.size(); i++) {
-                formattedGenre = formattedGenre + " | " + movieGenres.get(i);
+              if (namaBank.equals("QRIS")) {
+                button.setVisibility(View.VISIBLE);
+                setKeterangan.setText("Anda akan menyewa film ini selama seminggu, dengan biaya penyewaan sebesar Rp.30.000. Segala bentuk keterlambatan pengembalian akan dikenakan denda sebesar Rp.5.000 per-harinya. Jika anda setuju melanjutkan silahkan bayar melalui QRIS dibawah ini. Setelah membayar, transaksi anda akan diproses terlebih dahulu, proses ini akan berlangsung selama beberapa menit. ");
+              } else {
+                setKeterangan.setText("Anda akan menyewa film ini selama seminggu, dengan biaya penyewaan sebesar Rp.30.000. Segala bentuk keterlambatan pengembalian akan dikenakan denda sebesar Rp.5.000 per-harinya. Jika anda setuju melanjutkan silahkan transfer ke nomor rekening berikut 1480325238. Setelah membayar, transaksi anda akan diproses terlebih dahulu, proses ini akan berlangsung selama beberapa menit. ");
               }
-              setGenre.setText(formattedGenre);
+              ImageView ivTransferPoster = view.findViewById(R.id.ivTransferPoster);
+
+              Glide.with(getActivity())
+                  .load("https://image.tmdb.org/t/p/w500/" + singleMovieResults.getPoster_path())
+                  .into(ivTransferPoster);
             }
 
-          };
-          Thread tGenre = new GenreThread(hGenre);
-          tGenre.start();
-          if (namaBank.equals("QRIS")) {
-            setKeterangan.setText("Anda akan menyewa film ini selama seminggu, dengan biaya penyewaan sebesar Rp.30.000. Segala bentuk keterlambatan pengembalian akan dikenakan denda sebesar Rp.5.000 per-harinya. Jika anda setuju melanjutkan silahkan bayar melalui QRIS dibawah ini. Setelah membayar, transaksi anda akan diproses terlebih dahulu, proses ini akan berlangsung selama beberapa menit. ");
-          } else {
-            setKeterangan.setText("Anda akan menyewa film ini selama seminggu, dengan biaya penyewaan sebesar Rp.30.000. Segala bentuk keterlambatan pengembalian akan dikenakan denda sebesar Rp.5.000 per-harinya. Jika anda setuju melanjutkan silahkan transfer ke nomor rekening berikut 1480325238. Setelah membayar, transaksi anda akan diproses terlebih dahulu, proses ini akan berlangsung selama beberapa menit. ");
-          }
-          ImageView ivTransferPoster = view.findViewById(R.id.ivTransferPoster);
-
-          Glide.with(getActivity())
-              .load("https://image.tmdb.org/t/p/w500/" + movie.getPoster_path())
-              .into(ivTransferPoster);
         }
-      }
+      };
+      Thread tSingleMovie = new SingleMovieThread(hSingleMovie,idFilm);
+      tSingleMovie.start();
+
+
+
+
+      button.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          downloadImage();
+        }
+      });
+
       Button button2 = view.findViewById(R.id.button2);
 
       // Mengatur listener klik pada tombol
@@ -156,8 +198,9 @@ public class TransferFragment extends Fragment {
 //          intent.putExtra("namaBank", namaBank);
 //          startActivity(intent);
           Bundle bundle = new Bundle();
-          bundle.putSerializable("film", movie);
+          //bundle.putSerializable("film", movie);
           bundle.putString("namaBank", namaBank);
+          bundle.putInt("idFilm",idFilm);
 
           // Panggil metode untuk mengganti fragment dan kirim Bundle ke fragment peminjaman
           ((HomeActivity) getContext()).replaceFragmentWithBundle(new ProsesFragment(), bundle);
@@ -177,6 +220,45 @@ public class TransferFragment extends Fragment {
           ((HomeActivity) getContext()).replaceFragment(new HomeFragment());
         }
       });
+    }
+
+  }
+  private void downloadImage() {
+    // Decode the image from drawable
+    Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.qris_tavetrove);
+
+    // Save the image to external storage
+    String fileName = "qris_tavetrove.jpg";
+    File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);
+
+    FileOutputStream outputStream = null;
+    try {
+      outputStream = new FileOutputStream(file);
+      bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+      Toast.makeText(getActivity(), "Image downloaded successfully!", Toast.LENGTH_SHORT).show();
+    } catch (IOException e) {
+      e.printStackTrace();
+      Toast.makeText(getActivity(), "Failed to download image.", Toast.LENGTH_SHORT).show();
+    } finally {
+      if (outputStream != null) {
+        try {
+          outputStream.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+  @Override
+  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+    if (requestCode == WRITE_EXTERNAL_STORAGE_PERMISSION_CODE) {
+      if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        downloadImage();
+      } else {
+        Toast.makeText(getActivity(), "Permission denied to write to external storage", Toast.LENGTH_SHORT).show();
+      }
     }
   }
 }

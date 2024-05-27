@@ -144,7 +144,7 @@ public class TransferActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Memulai aktivitas ProsesActivity saat tombol diklik
+                // Memulai aktivitas MainActivity saat tombol diklik
                 Intent intent = new Intent(TransferActivity.this, MainActivity.class);
 
                 startActivity(intent);

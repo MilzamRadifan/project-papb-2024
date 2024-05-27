@@ -46,7 +46,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.VH> {
 //                    context.startActivity(intent);
 
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("film", movie);
+//                    bundle.putSerializable("film", movie);
+                    bundle.putInt("idFilm",movie.getId());
                     // Panggil metode untuk mengganti fragment dan kirim Bundle ke fragment peminjaman
                     ((HomeActivity) context).replaceFragmentWithBundle(new PeminjamanFragment(), bundle);
                 }

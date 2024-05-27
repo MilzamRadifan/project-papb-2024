@@ -1,188 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PeminjamanFragment"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    tools:context=".PeminjamanFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000519"
-        >
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:text="M3GAN"
-            android:textColor="#FBFDFF"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wvTrailer" />
+        android:background="#000519">
 
-        <TextView
-            android:id="@+id/tvGenre"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textColor="#FBFDFF"
-            android:textSize="17sp"
-            app:layout_constraintStart_toStartOf="@+id/tvTitle"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-            tools:text="HORROR | THRILLER | MYSTERY" />
-
-        <TextView
-            android:id="@+id/tvScore"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="★ 3.2"
-            android:textColor="#FBFDFF"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="@+id/tvGenre"
-            app:layout_constraintTop_toBottomOf="@+id/tvGenre" />
-
-        <TextView
-            android:id="@+id/tvRating"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="5dp"
-            android:text="15+"
-            android:textColor="#FBFDFF"
-            android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@+id/tvScore"
-            app:layout_constraintTop_toBottomOf="@+id/tvGenre" />
-
-        <TextView
-            android:id="@+id/tvYear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="5dp"
-            android:text="2023"
-            android:textColor="#FBFDFF"
-            android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@+id/tvRating"
-            app:layout_constraintTop_toBottomOf="@+id/tvGenre" />
-
-        <TextView
-            android:id="@+id/tvDuration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:layout_marginTop="5dp"
-            android:text="1h 42m"
-            android:textColor="#FBFDFF"
-            android:textSize="15sp"
-            app:layout_constraintStart_toEndOf="@+id/tvYear"
-            app:layout_constraintTop_toBottomOf="@+id/tvGenre" />
-
-        <TextView
-            android:id="@+id/tvPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="12dp"
-            android:text="Rp. 30.000"
-            android:textColor="#FBFDFF"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvGenre" />
-
-
-        <TextView
-            android:id="@+id/tvSynopsis"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="12dp"
-            android:letterSpacing="0.1"
-            android:text="Seorang insinyur robotika di sebuah perusahaan mainan membuat boneka yang penampilannya seperti gadis kecil dan diprogram agar menjadi teman sekaligus penjaga bagi anak-anak. Sampai petaka dimulai saat boneka M3gan ternyata mulai hidup dan meneror penciptanya."
-            android:textAlignment="viewStart"
-            android:textColor="#FBFDFF"
-            app:layout_constraintEnd_toEndOf="@+id/tvPrice"
-            app:layout_constraintStart_toStartOf="@+id/tvScore"
-            app:layout_constraintTop_toBottomOf="@+id/view2" />
-
-        <View
-            android:id="@+id/view2"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginStart="12dp"
-            android:background="#FBFDFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDuration" />
-
-        <View
-            android:id="@+id/view3"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginStart="12dp"
-            android:background="#FBFDFF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvSynopsis" />
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/peminjaman_menu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="#000519"
-            app:labelVisibilityMode="labeled"
-            app:itemIconTint="#FBFDFF"
-            app:itemTextColor="#FBFDFF"
-            app:itemActiveIndicatorStyle="@android:style/Animation.Translucent"
-            app:layout_constraintEnd_toEndOf="@+id/tvSynopsis"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="@+id/tvSynopsis"
-            app:layout_constraintTop_toBottomOf="@+id/view3"
-            app:menu="@menu/peminjaman_menu"/>
-
-        <Button
-            android:id="@+id/buttonSewa"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="12dp"
-            android:backgroundTint="@color/blue"
-            android:text="Rent The Movie"
-            android:textColor="#fbfdff"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/peminjaman_menu" />
-
-        <WebView
-            android:id="@+id/wvTrailer"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="#000519"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <FrameLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/fullscreencontainer"
-            />
+            android:background="#000519">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"
+
+                android:textColor="#FBFDFF"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/wvTrailer"
+                tools:text="M3GAN" />
+
+            <TextView
+                android:id="@+id/tvGenre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="#FBFDFF"
+                android:textSize="17sp"
+                app:layout_constraintStart_toStartOf="@+id/tvTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                tools:text="HORROR | THRILLER | MYSTERY" />
+
+            <TextView
+                android:id="@+id/tvScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textColor="#FBFDFF"
+                android:textSize="15sp"
+                app:layout_constraintStart_toStartOf="@+id/tvGenre"
+                app:layout_constraintTop_toBottomOf="@+id/tvGenre"
+                tools:text="★ 3.2" />
+
+            <TextView
+                android:id="@+id/tvRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#FBFDFF"
+                android:textSize="15sp"
+                app:layout_constraintStart_toEndOf="@+id/tvDuration"
+                app:layout_constraintTop_toBottomOf="@+id/tvGenre"
+                tools:text="21+" />
+
+            <TextView
+                android:id="@+id/tvYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#FBFDFF"
+                android:textSize="15sp"
+                app:layout_constraintStart_toEndOf="@+id/tvScore"
+                app:layout_constraintTop_toBottomOf="@+id/tvGenre"
+                tools:text="2023" />
+
+            <TextView
+                android:id="@+id/tvDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="5dp"
+                android:textColor="#FBFDFF"
+                android:textSize="15sp"
+                app:layout_constraintStart_toEndOf="@+id/tvYear"
+                app:layout_constraintTop_toBottomOf="@+id/tvGenre"
+                tools:text="1h 42m" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="12dp"
+                android:text="Rp. 30.000"
+                android:textColor="#FBFDFF"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvGenre" />
+
+
+            <TextView
+                android:id="@+id/tvSynopsis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="12dp"
+                android:letterSpacing="0.1"
+                android:textAlignment="viewStart"
+                android:textColor="#FBFDFF"
+                app:layout_constraintEnd_toEndOf="@+id/tvPrice"
+                app:layout_constraintStart_toStartOf="@+id/tvScore"
+                app:layout_constraintTop_toBottomOf="@+id/view2"
+                tools:text="Seorang insinyur robotika di sebuah perusahaan mainan membuat boneka yang penampilannya seperti gadis kecil dan diprogram agar menjadi teman sekaligus penjaga bagi anak-anak. Sampai petaka dimulai saat boneka M3gan ternyata mulai hidup dan meneror penciptanya." />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="12dp"
+                android:background="#FBFDFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDuration" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="12dp"
+                android:background="#FBFDFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvSynopsis" />
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/peminjaman_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="#000519"
+                app:itemActiveIndicatorStyle="@android:style/Animation.Translucent"
+                app:itemIconTint="#FBFDFF"
+                app:itemTextColor="#FBFDFF"
+                app:labelVisibilityMode="labeled"
+                app:layout_constraintEnd_toEndOf="@+id/tvSynopsis"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="@+id/tvSynopsis"
+                app:layout_constraintTop_toBottomOf="@+id/view3"
+                app:menu="@menu/peminjaman_menu" />
+
+            <Button
+                android:id="@+id/buttonSewa"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="12dp"
+                android:backgroundTint="@color/blue"
+                android:text="Rent The Movie"
+                android:textColor="#fbfdff"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/peminjaman_menu" />
+
+            <WebView
+                android:id="@+id/wvTrailer"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:background="#000519"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/fullscreencontainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </FrameLayout>

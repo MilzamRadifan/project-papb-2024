@@ -1,5 +1,5 @@
 package com.example.tapetrove;
-
+//Thread untuk mengambil list film dari TMDB API dengan menggunakan Retrofit.
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;

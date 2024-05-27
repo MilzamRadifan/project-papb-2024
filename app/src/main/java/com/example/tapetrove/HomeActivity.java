@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -82,5 +84,6 @@ public class HomeActivity extends AppCompatActivity {
             .addToBackStack(null)
             .commit();
     }
+
 
 }

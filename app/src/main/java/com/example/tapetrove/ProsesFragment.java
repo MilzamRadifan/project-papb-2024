@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,9 +73,12 @@ public class ProsesFragment extends Fragment {
 
     Bundle bundle = getArguments();
     if (bundle != null) {
-      MovieResults.ResultsBean movie = (MovieResults.ResultsBean) bundle.getSerializable("film");
+      //MovieResults.ResultsBean movie = (MovieResults.ResultsBean) bundle.getSerializable("film");
       String namaBank = bundle.getString("namaBank");
       String statusPembayaran = "proses";
+      int idFilm=bundle.getInt("idFilm");
+      TextView tv29 = view.findViewById(R.id.textView29);
+
       new Handler().postDelayed(new Runnable() {
         @Override
         public void run() {
@@ -86,9 +90,10 @@ public class ProsesFragment extends Fragment {
 //          startActivity(intent);
 //          finish(); // Mengakhiri ProsesActivity setelah memulai BerhasilActivity
           Bundle bundle = new Bundle();
-          bundle.putSerializable("film", movie);
+//          bundle.putSerializable("film", movie);
           bundle.putString("namaBank", namaBank);
           bundle.putString("statusPembayaran", statusPembayaran);
+          bundle.putInt("idFilm",idFilm);
 
           // Panggil metode untuk mengganti fragment dan kirim Bundle ke fragment peminjaman
           ((HomeActivity) getContext()).replaceFragmentWithBundle(new BerhasilFragment(), bundle);

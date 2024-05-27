@@ -10,8 +10,11 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +32,9 @@ public class PembayaranFragment extends Fragment {
   private String mParam1;
   private String mParam2;
   private MovieResults.ResultsBean movie;
+  private int idFilm;
+  private TextView setEmail;
+  private FirebaseAuth mAuth;
 
   public PembayaranFragment() {
     // Required empty public constructor
@@ -65,17 +71,24 @@ public class PembayaranFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_pembayaran, container, false);
+    View view = inflater.inflate(R.layout.fragment_pembayaran, container, false);
+    setEmail=view.findViewById(R.id.tvPembayaranEmail);
+    mAuth = FirebaseAuth.getInstance();
+    return view;
   }
 
 
   @Override
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+    FirebaseUser currentUser = mAuth.getCurrentUser();
+    setEmail.setText(currentUser.getEmail());
 
     Bundle bundle = getArguments();
     if (bundle != null) {
       movie = (MovieResults.ResultsBean) bundle.getSerializable("film");
+      idFilm=bundle.getInt("idFilm");
+
       NavigationView navigationView = view.findViewById(R.id.pembayaran_menu);
       // Menangani klik item menu
       navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -119,6 +132,7 @@ public class PembayaranFragment extends Fragment {
 //        startActivity(intent);
           Bundle bundle = new Bundle();
           bundle.putSerializable("film", movie);
+          bundle.putInt("idFilm",idFilm);
           bundle.putString("namaBank", namaBank);
 
           // Panggil metode untuk mengganti fragment dan kirim Bundle ke fragment peminjaman
