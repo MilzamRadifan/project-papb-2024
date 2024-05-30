@@ -1,21 +1,23 @@
 package com.example.tapetrove;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
 
 import com.example.tapetrove.databinding.ActivitySignUpBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
 
     ActivitySignUpBinding binding;
-    UserDatabase userDb;
-    UserDao userDao;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +25,8 @@ public class SignUpActivity extends AppCompatActivity {
         binding = ActivitySignUpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        userDb = Room.databaseBuilder(this, UserDatabase.class, "user")
-                .fallbackToDestructiveMigration()
-                .build();
-        userDao = userDb.getDao(); // Menggunakan getDao()
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference("users");
 
         binding.btSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,69 +38,36 @@ public class SignUpActivity extends AppCompatActivity {
                 String notelpon = binding.etTelephone.getText().toString();
                 String address = binding.etAddress.getText().toString();
 
-                if (username.equals("") || email.equals("") || password.equals("") || confirmPassword.equals("")) {
+                if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
                     Toast.makeText(SignUpActivity.this, "ISI SEMUA FIELD KOSONG", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (password.equals(confirmPassword)) {
-                    new CheckEmailTask(userDao, email, new OnEmailCheckListener() {
-                        @Override
-                        public void onEmailChecked(boolean exists) {
-                            if (!exists) {
-                                User newUser = new User(0, username, email, password, notelpon, address);
-                                new InsertUserTask(userDao).execute(newUser);
-                                Toast.makeText(SignUpActivity.this, "Berhasil mendaftar", Toast.LENGTH_SHORT).show();
-                                finish();
-                            } else {
-                                Toast.makeText(SignUpActivity.this, "User telah Terdaftar, LOGIN", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }).execute();
+                    mAuth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(SignUpActivity.this, task -> {
+                                if (task.isSuccessful()) {
+                                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                                    User newUser = new User(username, email, password, notelpon, address);
+                                    if (firebaseUser != null) {
+                                        mDatabase.child(firebaseUser.getUid()).setValue(newUser)
+                                                .addOnCompleteListener(task1 -> {
+                                                    if (task1.isSuccessful()) {
+                                                        Toast.makeText(SignUpActivity.this, "Berhasil mendaftar", Toast.LENGTH_SHORT).show();
+                                                        finish();
+                                                    } else {
+                                                        Toast.makeText(SignUpActivity.this, "Gagal menyimpan data pengguna", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                    }
+                                } else {
+                                    Toast.makeText(SignUpActivity.this, "Gagal mendaftar: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
                 } else {
                     Toast.makeText(SignUpActivity.this, "Password Berbeda", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-    }
-
-    private interface OnEmailCheckListener {
-        void onEmailChecked(boolean exists);
-    }
-
-    private static class CheckEmailTask extends AsyncTask<Void, Void, Boolean> {
-        private UserDao userDao;
-        private String email;
-        private OnEmailCheckListener listener;
-
-        CheckEmailTask(UserDao userDao, String email, OnEmailCheckListener listener) {
-            this.userDao = userDao;
-            this.email = email;
-            this.listener = listener;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            return userDao.checkEmail(email);
-        }
-
-        @Override
-        protected void onPostExecute(Boolean exists) {
-            listener.onEmailChecked(exists);
-        }
-    }
-
-    private static class InsertUserTask extends AsyncTask<User, Void, Void> {
-        private UserDao userDao;
-
-        InsertUserTask(UserDao userDao) {
-            this.userDao = userDao;
-        }
-
-        @Override
-        protected Void doInBackground(User... users) {
-            userDao.insertUser(users[0]);
-            return null;
-        }
     }
 }

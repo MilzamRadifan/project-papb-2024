@@ -4,29 +4,32 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "user")
+//@Entity(tableName = "user")
 public class User {
-    @ColumnInfo(name="userId")
-    @PrimaryKey(autoGenerate = true)
-    private int userId;
+    private String username, email, password, telephone, address;
+    private String profileImageUrl;
+    public User() {
+    }
+//    @ColumnInfo(name="userId")
+//    @PrimaryKey(autoGenerate = true)
+//    private int userId;
+//
+//    @ColumnInfo(name="username")
+//    private String username;
+//
+//    @ColumnInfo(name = "email")
+//    private String email;
+//
+//    @ColumnInfo(name = "password")
+//    private String password;
+//
+//    @ColumnInfo(name = "telephone")
+//    private String telephone;
+//
+//    @ColumnInfo(name = "address")
+//    private String address;
 
-    @ColumnInfo(name="username")
-    private String username;
-
-    @ColumnInfo(name = "email")
-    private String email;
-
-    @ColumnInfo(name = "password")
-    private String password;
-
-    @ColumnInfo(name = "telephone")
-    private String telephone;
-
-    @ColumnInfo(name = "address")
-    private String address;
-
-    public User(int userId, String username, String email, String password, String telephone, String address) {
-        this.userId = userId;
+    public User(String username, String email, String password, String telephone, String address) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -34,13 +37,13 @@ public class User {
         this.address = address;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+//    public int getUserId() {
+//        return userId;
+//    }
+//
+//    public void setUserId(int userId) {
+//        this.userId = userId;
+//    }
 
     public String getUsername() {
         return username;
@@ -80,5 +83,12 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
     }
 }

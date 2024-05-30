@@ -12,6 +12,20 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +33,9 @@ import java.io.IOException;
 public class pilihGambarProfile {
     private Context context;
     private ImageButton ibAvatar;
+    private Uri imageUri;
+    private String myUri = "";
+    private StorageReference storageReference;
 
     public static final int REQUEST_CODE_GALLERY = 101;
     public static final int REQUEST_CODE_CAMERA = 102;
@@ -26,7 +43,7 @@ public class pilihGambarProfile {
     public pilihGambarProfile(Context context, ImageButton ibAvatar) {
         this.context = context;
         this.ibAvatar = ibAvatar;
-        // Set avatar image when initializing the object
+        storageReference = FirebaseStorage.getInstance().getReference("profile_images");
         setAvatar(getSavedImage(context));
     }
 
@@ -63,11 +80,60 @@ public class pilihGambarProfile {
     }
 
     public void saveImage(Uri imageUri) {
+        this.imageUri = imageUri;
         SharedPreferences sharedPreferences = context.getSharedPreferences("image", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("image", imageUri.toString());
         editor.apply();
-        setAvatar(imageUri); // Set avatar after saving image
+
+        uploadImageToFirebase();
+    }
+
+    private void uploadImageToFirebase() {
+        if (imageUri != null) {
+            StorageReference fileReference = storageReference.child(System.currentTimeMillis() + ".jpg");
+
+            fileReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String downloadUrl = uri.toString();
+                            saveImageUrlToDatabase(downloadUrl);
+                            setAvatar(uri);
+                        }
+                    });
+                    Toast.makeText(context, "Upload successful", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, "Upload failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    private void saveImageUrlToDatabase(String downloadUrl) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+            String uid = currentUser.getUid();
+            DatabaseReference userReference = FirebaseDatabase.getInstance().getReference("users").child(uid);
+            userReference.child("profileImageUrl").setValue(downloadUrl);
+        }
+    }
+
+
+    private void setAvatar(Uri imageUri) {
+        if (imageUri != null) {
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), imageUri);
+                ibAvatar.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static Uri getSavedImage(Context context) {
@@ -77,18 +143,6 @@ public class pilihGambarProfile {
             return Uri.parse(imageUriString);
         } else {
             return null;
-        }
-    }
-
-    // Method to set the avatar image to ImageButton
-    private void setAvatar(Uri imageUri) {
-        if (imageUri != null) {
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), imageUri);
-                ibAvatar.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 }

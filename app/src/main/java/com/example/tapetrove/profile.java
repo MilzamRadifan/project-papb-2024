@@ -1,5 +1,8 @@
 package com.example.tapetrove;
 
+import static com.example.tapetrove.pilihGambarProfile.REQUEST_CODE_CAMERA;
+import static com.example.tapetrove.pilihGambarProfile.REQUEST_CODE_GALLERY;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,15 +21,22 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.room.Room;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class profile extends AppCompatActivity {
 
     private TextView tvUsername, tvEmail;
     private ImageButton ibAvatar;
-    private UserDatabase userDb;
-    private UserDao userDao;
     private User user;
     private pilihGambarProfile pilihGambar;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +50,15 @@ public class profile extends AppCompatActivity {
         ibAvatar = findViewById(R.id.ibAvatar);
         LinearLayout content6 = findViewById(R.id.content6);
 
-        userDb = Room.databaseBuilder(this, UserDatabase.class, "user")
-                .fallbackToDestructiveMigration()
-                .build();
-        userDao = userDb.getDao(); // Menggunakan getDao()
-
-        Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
-        loadUserData(username);
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference("users");
 
         pilihGambar = new pilihGambarProfile(this, ibAvatar);
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            loadUserData(currentUser.getUid());
+        }
 
         btEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +67,6 @@ public class profile extends AppCompatActivity {
                     EditProfileFragment editProfileFragment = EditProfileFragment.newInstance(
                             user.getUsername(),
                             user.getEmail(),
-                            user.getPassword(),
                             user.getTelephone(),
                             user.getAddress()
                     );
@@ -70,7 +78,10 @@ public class profile extends AppCompatActivity {
         btOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Implement logout functionality
+                mAuth.signOut();
+                Intent intent = new Intent(profile.this, SignInActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -89,41 +100,29 @@ public class profile extends AppCompatActivity {
         });
     }
 
-    private void loadUserData(String username) {
-        new Thread(new Runnable() {
+    private void loadUserData(String uid) {
+        mDatabase.child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void run() {
-                user = userDao.getUserByUsername(username);
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                user = dataSnapshot.getValue(User.class);
                 if (user != null) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            tvUsername.setText(user.getUsername());
-                            tvEmail.setText(user.getEmail());
+                    tvUsername.setText(user.getUsername());
+                    tvEmail.setText(user.getEmail());
 
-                            // Mendapatkan URL gambar dari Firebase Database dan menampilkannya
-                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("profileImageUrl");
-                            databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    String imageUrl = dataSnapshot.getValue(String.class);
-                                    if (imageUrl != null) {
-                                        Glide.with(profile.this).load(imageUrl).into(ibAvatar);
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-                                    // Tangani error
-                                }
-                            });
-                        }
-                    });
+                    String imageUrl = user.getProfileImageUrl();
+                    if (imageUrl != null && !imageUrl.isEmpty()) {
+                        Glide.with(profile.this).load(imageUrl).into(ibAvatar);
+                    }
                 }
             }
-        }).start();
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle error
+            }
+        });
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -156,14 +155,10 @@ public class profile extends AppCompatActivity {
             user.setTelephone(newNoTelpon);
             user.setAddress(newAlamat);
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    userDao.updateUser(user);
-                }
-            }).start();
+            mDatabase.child(mAuth.getCurrentUser().getUid()).setValue(user);
         }
     }
+
 
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();

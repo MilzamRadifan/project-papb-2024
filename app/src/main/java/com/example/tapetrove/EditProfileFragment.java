@@ -13,6 +13,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link EditProfileFragment#newInstance} factory method to
@@ -22,20 +26,19 @@ public class EditProfileFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private EditText etEmail, etUsername, etPassword, etNoTelpon, etAlamat;
-    private UserDatabase userDb;
-    private UserDao userDao;
+    private EditText etEmail, etUsername, etNoTelpon, etAlamat;
+    private DatabaseReference mDatabase;
+    private FirebaseAuth mAuth;
 
     public EditProfileFragment() {
         // Required empty public constructor
     }
 
-    public static EditProfileFragment newInstance(String username, String email, String password, String noTelpon, String alamat) {
+    public static EditProfileFragment newInstance(String username, String email, String noTelpon, String alamat) {
         EditProfileFragment fragment = new EditProfileFragment();
         Bundle args = new Bundle();
         args.putString("username", username);
         args.putString("email", email);
-        args.putString("password", password);
         args.putString("noTelpon", noTelpon);
         args.putString("alamat", alamat);
         fragment.setArguments(args);
@@ -54,29 +57,23 @@ public class EditProfileFragment extends Fragment {
 
         etUsername = view.findViewById(R.id.etUsername);
         etEmail = view.findViewById(R.id.etEmail);
-        etPassword = view.findViewById(R.id.etPassword);
         etNoTelpon = view.findViewById(R.id.etnomorhp);
         etAlamat = view.findViewById(R.id.etAlamat);
         Button btSimpan = view.findViewById(R.id.btSimpan);
         Button btCancel = view.findViewById(R.id.btCancel);
 
-        userDb = Room.databaseBuilder(requireContext(), UserDatabase.class, "user")
-                .allowMainThreadQueries()
-                .fallbackToDestructiveMigration()
-                .build();
-        userDao = userDb.getDao();
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference("users");
 
         Bundle bundle = getArguments();
         if (bundle != null) {
             String username = bundle.getString("username");
             String email = bundle.getString("email");
-            String password = bundle.getString("password");
             String noTelpon = bundle.getString("noTelpon");
             String alamat = bundle.getString("alamat");
 
             etUsername.setText(username);
             etEmail.setText(email);
-            etPassword.setText(password);
             etNoTelpon.setText(noTelpon);
             etAlamat.setText(alamat);
         }
@@ -86,18 +83,21 @@ public class EditProfileFragment extends Fragment {
             public void onClick(View v) {
                 String newUsername = etUsername.getText().toString();
                 String newEmail = etEmail.getText().toString();
-                String newPassword = etPassword.getText().toString();
                 String newNoTelpon = etNoTelpon.getText().toString();
                 String newAlamat = etAlamat.getText().toString();
 
-                User updatedUser = new User(0, newUsername, newEmail, newPassword, newNoTelpon, newAlamat);
-                userDao.updateUser(updatedUser);
+                DatabaseReference userRef = mDatabase.child(mAuth.getCurrentUser().getUid());
+
+                userRef.child("username").setValue(newUsername);
+                userRef.child("email").setValue(newEmail);
+                userRef.child("telephone").setValue(newNoTelpon);
+                userRef.child("address").setValue(newAlamat);
 
                 Bundle result = new Bundle();
-                result.putString("newUsername", newUsername);
-                result.putString("newEmail", newEmail);
-                result.putString("newNoTelpon", newNoTelpon);
-                result.putString("newAlamat", newAlamat);
+                result.putString("newusername", newUsername);
+                result.putString("newemail", newEmail);
+                result.putString("newnotelpon", newNoTelpon);
+                result.putString("newalamat", newAlamat);
                 getParentFragmentManager().setFragmentResult("editProfileResult", result);
 
                 // Setelah menyimpan, kembali ke ProfileFragment
