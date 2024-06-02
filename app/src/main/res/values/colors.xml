@@ -4,4 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#FF095DC2</color>
     <color name="gray">#808080</color>
+    <!-- Vira -->
+    <color name="colorPrimary">#000519</color>
+    <color name="colorAccent">#095DC2</color>
 </resources>

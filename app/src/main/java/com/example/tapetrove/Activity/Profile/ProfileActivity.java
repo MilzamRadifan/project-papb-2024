@@ -1,28 +1,34 @@
-package com.example.tapetrove.Activity.Home;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+package com.example.tapetrove.Activity.Profile;
 
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.tapetrove.Activity.Profile.ProfileActivity;
+import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.tapetrove.Activity.Home.HomeFragment;
+import com.example.tapetrove.Activity.Home.MainActivity;
+import com.example.tapetrove.Activity.Home.PeminjamanFragment;
 import com.example.tapetrove.Activity.Search.SearchActivity;
 import com.example.tapetrove.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        replaceFragment(new HomeFragment());
+        replaceFragment(new ProfileFragment());
 
         BottomNavigationView bottomNavigationView =
                 findViewById(R.id.bottomNavigation);
@@ -30,21 +36,18 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.home) {
                 // Handle Home item click
-//                startActivity(new Intent(getApplicationContext(),MainActivity.class));
-//                finish();
-                replaceFragment(new HomeFragment());
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
                 return true;
             } else if (item.getItemId() == R.id.search) {
                 // Handle Search item click
                 startActivity(new Intent(getApplicationContext(), SearchActivity.class));
                 finish();
-//                replaceFragment(new SearchFragment());
                 return true;
             } else if (item.getItemId() == R.id.profile) {
                 // Handle Profile item click
                 startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                 finish();
-//                replaceFragment(new ProfileFragment());
                 return true;
             }
             return false;
@@ -71,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void replaceFragment(Fragment fragment){
-        FragmentManager fragmentManager =getSupportFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction =
                 fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout,fragment);
@@ -85,5 +88,4 @@ public class MainActivity extends AppCompatActivity {
                 .addToBackStack(null)
                 .commit();
     }
-
 }
