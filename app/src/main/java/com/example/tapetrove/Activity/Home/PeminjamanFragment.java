@@ -19,8 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.tapetrove.Activity.Profile.WishlistActivity;
+import com.example.tapetrove.Api.ApiResponse;
 import com.example.tapetrove.Api.Genre;
-import com.example.tapetrove.Api.MovieResults;
 import com.example.tapetrove.Api.Trailer;
 import com.example.tapetrove.Database.Wishlist;
 import com.example.tapetrove.R;
@@ -100,7 +100,7 @@ public class PeminjamanFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            MovieResults.ResultsBean movie = (MovieResults.ResultsBean) bundle.getSerializable("film");
+            ApiResponse.Movie movie = (ApiResponse.Movie) bundle.getSerializable("film");
             // Gunakan objek Film sesuai kebutuhan
             String title = movie.getTitle();
             String voteAverage = "★ " + String.format("%.1f", movie.getVote_average());

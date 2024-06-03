@@ -3,7 +3,7 @@ package com.example.tapetrove.Activity.Home;
 import android.os.Handler;
 import android.os.Message;
 
-import com.example.tapetrove.Api.MovieResults;
+import com.example.tapetrove.Api.ApiResponse;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -46,7 +46,7 @@ public class FilmThread extends Thread {
                 br.close();
 
                 // Convert JSON string to MovieResults object using Gson
-                MovieResults movieResults = gson.fromJson(response.toString(), MovieResults.class);
+                ApiResponse movieResults = gson.fromJson(response.toString(), ApiResponse.class);
                 // Send MovieResults object to UI thread
                 Message message = handler.obtainMessage();
                 message.obj = movieResults;
