@@ -1,6 +1,8 @@
 package com.example.tapetrove.Activity.Search;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.tapetrove.Activity.Home.MainActivity;
 import com.example.tapetrove.Api.ApiResponse;
 import com.example.tapetrove.R;
 
@@ -58,19 +61,20 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     vh.tvTitle.setText(m.getTitle().toString());
 
-    if (m.getRelease_date_year() != null) {
-      vh.tvReleasedate.setText(m.getRelease_date_year().toString());
+    if (m.getRelease_date() != null) {
+      vh.tvReleasedate.setText(m.getRelease_date().toString());
     } else {
       vh.tvReleasedate.setText("N/A");
     }
 
     Glide.with(context).
             load("https://image.tmdb.org/t/p/w500"+m.getPoster_path()).into(vh.imgPoster);
-    vh.cardRv.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        Toast.makeText(holder.itemView.getContext(), "You clicked " + m.getTitle(), Toast.LENGTH_SHORT).show();
-      }
+    vh.cardRv.setOnClickListener(v -> {
+      Intent intent = new Intent(context, MainActivity.class);
+      Bundle bundle = new Bundle();
+      bundle.putSerializable("movie", m);
+      intent.putExtras(bundle);
+      context.startActivity(intent);
     });
   }
 

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.tapetrove.Activity.Home.MainActivity;
-import com.example.tapetrove.Api.MovieResults;
+import com.example.tapetrove.Api.ApiResponse;
 import com.example.tapetrove.R;
 
 import java.io.Serializable;
@@ -22,9 +22,9 @@ import java.util.List;
 
 public class FilmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final Context context;
-    private final List<MovieResults.ResultsBean> movies;
+    private final List<ApiResponse.Movie> movies;
 
-    public FilmAdapter(Context context, List<MovieResults.ResultsBean> movies) {
+    public FilmAdapter(Context context, List<ApiResponse.Movie> movies) {
         this.context = context;
         this.movies = movies;
     }
@@ -45,7 +45,7 @@ public class FilmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     int position = getAdapterPosition();
                     // Mendapatkan objek Film berdasarkan posisi
 //                    Film film = films.get(position);
-                    MovieResults.ResultsBean movie = movies.get(position);
+                    ApiResponse.Movie movie = movies.get(position);
                     // Memulai aktivitas baru dengan Intent
 
 //          Intent intent = new Intent(context, PeminjamanActivity.class);
@@ -73,7 +73,7 @@ public class FilmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(
             @NonNull RecyclerView.ViewHolder holder, int position) {
 //        Film f = this.films.get(position);
-        MovieResults.ResultsBean movie = this.movies.get(position);
+        ApiResponse.Movie movie = this.movies.get(position);
         VH vh = (VH) holder;
         Glide.with(context)
                 .load("https://image.tmdb.org/t/p/w500/" + movie.getPoster_path())

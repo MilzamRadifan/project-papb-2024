@@ -12,16 +12,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
-import com.example.tapetrove.Api.MovieResults;
+import com.example.tapetrove.Api.ApiResponse;
 import com.example.tapetrove.R;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.VH> {
 
     private final Context context;
-    private final List<MovieResults.ResultsBean> movies;
+    private final List<ApiResponse.Movie> movies;
 
-    public MovieAdapter(Context context, List<MovieResults.ResultsBean> movies) {
+    public MovieAdapter(Context context, List<ApiResponse.Movie> movies) {
         this.context = context;
         this.movies = movies;
     }
@@ -39,7 +39,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.VH> {
                     int position = getAdapterPosition();
                     // Mendapatkan objek Film berdasarkan posisi
 //                    Film film = films.get(position);
-                    MovieResults.ResultsBean movie= movies.get(position);
+                    ApiResponse.Movie movie= movies.get(position);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("film", movie);
                     // Panggil metode untuk mengganti fragment dan kirim Bundle ke fragment peminjaman
@@ -59,7 +59,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.VH> {
 
     @Override
     public void onBindViewHolder(@NonNull VH holder, int position) {
-        MovieResults.ResultsBean todo = movies.get(position);
+        ApiResponse.Movie todo = movies.get(position);
         // Memuat gambar menggunakan Glide
         Glide.with(context)
                 .load("https://image.tmdb.org/t/p/w500/" + todo.getPoster_path())

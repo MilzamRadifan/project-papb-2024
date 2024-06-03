@@ -17,7 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.tapetrove.Api.MovieResults;
+import com.example.tapetrove.Api.ApiResponse;
 import com.example.tapetrove.R;
 import java.util.List;
 
@@ -81,8 +81,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 super.handleMessage(msg);
-                MovieResults movieResults = (MovieResults) msg.obj;
-                List<MovieResults.ResultsBean> results = movieResults.getResults();
+                ApiResponse movieResults = (ApiResponse) msg.obj;
+                List<ApiResponse.Movie> results = movieResults.getResults();
                 FilmAdapter filmAdapter = new FilmAdapter(getContext(), results);
                 SnapHelper snapHelper = new PagerSnapHelper();
                 snapHelper.attachToRecyclerView(rvFilm);
@@ -99,8 +99,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 super.handleMessage(msg);
-                MovieResults movieResults = (MovieResults) msg.obj;
-                List<MovieResults.ResultsBean> results = movieResults.getResults();
+                ApiResponse movieResults = (ApiResponse) msg.obj;
+                List<ApiResponse.Movie> results = movieResults.getResults();
                 MovieAdapter movieAdapter = new MovieAdapter(getContext(), results);
                 rvPosterNewReleased.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
                 rvPosterNewReleased.setAdapter(movieAdapter);
@@ -116,8 +116,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 super.handleMessage(msg);
-                MovieResults movieResults = (MovieResults) msg.obj;
-                List<MovieResults.ResultsBean> results = movieResults.getResults();
+                ApiResponse movieResults = (ApiResponse) msg.obj;
+                List<ApiResponse.Movie> results = movieResults.getResults();
                 MovieAdapter movieAdapter = new MovieAdapter(getContext(), results);
                 rvPosterTrending.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
                 rvPosterTrending.setAdapter(movieAdapter);
@@ -133,8 +133,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 super.handleMessage(msg);
-                MovieResults movieResults = (MovieResults) msg.obj;
-                List<MovieResults.ResultsBean> results = movieResults.getResults();
+                ApiResponse movieResults = (ApiResponse) msg.obj;
+                List<ApiResponse.Movie> results = movieResults.getResults();
                 MovieAdapter movieAdapter = new MovieAdapter(getContext(), results);
                 rvPosterUpcoming.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
                 rvPosterUpcoming.setAdapter(movieAdapter);
@@ -150,8 +150,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void handleMessage(@NonNull Message msg) {
                 super.handleMessage(msg);
-                MovieResults movieResults = (MovieResults) msg.obj;
-                List<MovieResults.ResultsBean> results = movieResults.getResults();
+                ApiResponse movieResults = (ApiResponse) msg.obj;
+                List<ApiResponse.Movie> results = movieResults.getResults();
                 MovieAdapter movieAdapter = new MovieAdapter(getContext(), results);
                 rvPosterTopRating.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
                 rvPosterTopRating.setAdapter(movieAdapter);
