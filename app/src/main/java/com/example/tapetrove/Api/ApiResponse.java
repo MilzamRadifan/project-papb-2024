@@ -2,9 +2,10 @@ package com.example.tapetrove.Api;
 
 import android.graphics.Movie;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ApiResponse {
+public class ApiResponse implements Serializable {
   private String maximum;
   private String minimum;
 
@@ -62,7 +63,7 @@ public class ApiResponse {
     this.total_results = total_results;
   }
 
-  public class Movie {
+  public class Movie implements Serializable{
     private boolean adult;
     private String backdrop_path;
     private List<Integer> genre_ids;

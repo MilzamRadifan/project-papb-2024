@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.tapetrove.Api.MovieResults;
+import com.example.tapetrove.Api.ApiResponse;
 import com.example.tapetrove.R;
 
 public class ProsesFragment extends Fragment {
@@ -56,7 +56,7 @@ public class ProsesFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            MovieResults.ResultsBean movie = (MovieResults.ResultsBean) bundle.getSerializable("film");
+            ApiResponse.Movie movie = (ApiResponse.Movie) bundle.getSerializable("film");
             String namaBank = bundle.getString("namaBank");
             String statusPembayaran = "proses";
             new Handler().postDelayed(new Runnable() {

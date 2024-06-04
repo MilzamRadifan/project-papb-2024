@@ -11,8 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.tapetrove.Api.MovieResults;
+import com.example.tapetrove.Api.ApiResponse;
 import com.example.tapetrove.R;
+import com.google.android.gms.common.api.Api;
 import com.google.android.material.navigation.NavigationView;
 
 public class PembayaranFragment extends Fragment {
@@ -21,7 +22,7 @@ public class PembayaranFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private String mParam1, mParam2;
-    private MovieResults.ResultsBean movie;
+    private ApiResponse.Movie movie;
 
     public PembayaranFragment() {
         // Required empty public constructor
@@ -59,7 +60,7 @@ public class PembayaranFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            movie = (MovieResults.ResultsBean) bundle.getSerializable("film");
+            movie = (ApiResponse.Movie) bundle.getSerializable("film");
             NavigationView navigationView = view.findViewById(R.id.pembayaran_menu);
             // Menangani klik item menu
             navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {

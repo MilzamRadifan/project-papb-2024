@@ -16,12 +16,24 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.tapetrove.Activity.Profile.WishlistActivity;
+import com.example.tapetrove.Api.ApiResponse;
 import com.example.tapetrove.Api.Genre;
-import com.example.tapetrove.Api.MovieResults;
 import com.example.tapetrove.Api.Trailer;
+import com.example.tapetrove.Database.Wishlist;
 import com.example.tapetrove.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,18 +42,12 @@ public class PeminjamanFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1,
-            mParam2;
-
-    private TextView tvTitle,
-            tvGenre,
-            tvScore,
-            tvRating,
-            tvYear,
-            tvDuration,
-            tvSynopsis;
+    private String mParam1, mParam2;
+    private TextView tvTitle, tvGenre, tvScore, tvRating, tvYear, tvDuration, tvSynopsis;
     private WebView webView;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
     public PeminjamanFragment() {
         // Required empty public constructor
@@ -79,6 +85,12 @@ public class PeminjamanFragment extends Fragment {
         tvDuration = view.findViewById(R.id.tvDuration);
         tvSynopsis = view.findViewById(R.id.tvSynopsis);
         webView =view.findViewById(R.id.wvTrailer);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
+        Wishlist wishlist = new Wishlist();
         return view;
     }
 
@@ -88,7 +100,7 @@ public class PeminjamanFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            MovieResults.ResultsBean movie = (MovieResults.ResultsBean) bundle.getSerializable("film");
+            ApiResponse.Movie movie = (ApiResponse.Movie) bundle.getSerializable("film");
             // Gunakan objek Film sesuai kebutuhan
             String title = movie.getTitle();
             String voteAverage = "★ " + String.format("%.1f", movie.getVote_average());
@@ -151,11 +163,40 @@ public class PeminjamanFragment extends Fragment {
             };
             Thread tGenre = new GenreThread(hGenre);
             tGenre.start();
+
             Button btnSewa = view.findViewById(R.id.buttonSewa);
+
             BottomNavigationView peminjamanMenu = view.findViewById(R.id.peminjaman_menu);
             peminjamanMenu.setOnItemSelectedListener(item -> {
                 if (item.getItemId() == R.id.bottom_wishlist) {
-//                    Wishlist Fragment
+                    String userId = firebaseAuth.getCurrentUser().getUid();
+                    int movieId = movie.getId();
+
+                    databaseReference.child("wishlist").child(userId)
+                            .orderByChild("movieId").equalTo(movieId)
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if (dataSnapshot.exists()) {
+                                        Toast.makeText(getActivity(), "Film sudah ada di wishlist", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Wishlist wishlist = new Wishlist(userId, movieId);
+                                        databaseReference.child("wishlist").child(userId).push().setValue(wishlist)
+                                                .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        Intent intent = new Intent(getActivity(), WishlistActivity.class);
+                                                        startActivity(intent);
+                                                    }
+                                                });
+                                    }
+                                }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                    return true;
                 } else if (item.getItemId() == R.id.bottom_bagikan) {
                     Intent sendIntent = new Intent();
                     sendIntent.setAction(Intent.ACTION_SEND);
@@ -168,6 +209,7 @@ public class PeminjamanFragment extends Fragment {
                     Bundle bundleRating = new Bundle();
                     bundleRating.putInt("idFilm", movie.getId());
                     ((MainActivity) getContext()).replaceFragmentWithBundle(new RatingFragment(), bundleRating);
+                    return true;
                 }
                 return false;
             });

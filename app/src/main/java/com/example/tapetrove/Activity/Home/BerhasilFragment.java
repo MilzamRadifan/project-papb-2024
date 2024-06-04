@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.tapetrove.Api.MovieResults;
+import com.example.tapetrove.Api.ApiResponse;
 import com.example.tapetrove.R;
 import com.google.gson.Gson;
 
@@ -66,7 +66,7 @@ public class BerhasilFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            MovieResults.ResultsBean movie = (MovieResults.ResultsBean) bundle.getSerializable("film");
+            ApiResponse.Movie movie = (ApiResponse.Movie) bundle.getSerializable("film");
             String namaBank = bundle.getString("namaBank");
             String statusPembayaran = bundle.getString("statusPembayaran");
 

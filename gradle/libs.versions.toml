@@ -10,7 +10,6 @@ constraintlayout = "2.1.4"
 googleServices = "4.4.1"
 firebaseAuth = "23.0.0"
 firebaseDatabase = "21.0.0"
-navigationRuntime = "2.7.7"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -23,7 +22,6 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServices" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
-navigation-runtime = { group = "androidx.navigation", name = "navigation-runtime", version.ref = "navigationRuntime" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

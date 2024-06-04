@@ -28,8 +28,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.tapetrove.Api.ApiResponse;
 import com.example.tapetrove.Api.Genre;
-import com.example.tapetrove.Api.MovieResults;
 import com.example.tapetrove.R;
 
 import java.io.File;
@@ -114,7 +114,7 @@ public class TransferFragment extends Fragment {
 
         Bundle bundle = getArguments();
         if (bundle != null) {
-            MovieResults.ResultsBean movie = (MovieResults.ResultsBean) bundle.getSerializable("film");
+            ApiResponse.Movie movie = (ApiResponse.Movie) bundle.getSerializable("film");
             String namaBank = bundle.getString("namaBank");
 
             if (getArguments() != null) {
