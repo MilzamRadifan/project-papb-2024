@@ -5,6 +5,11 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -14,12 +19,17 @@ import com.example.tapetrove.Activity.Authentication.SignInActivity;
 import com.example.tapetrove.Activity.Profile.ProfileActivity;
 import com.example.tapetrove.Activity.Search.SearchActivity;
 import com.example.tapetrove.Api.ApiResponse;
+import com.example.tapetrove.Api.ApiResponse;
 import com.example.tapetrove.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
+    private FirebaseAuth mAuth;
+    private FirebaseUser user;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
 
@@ -29,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         replaceFragment(new HomeFragment());
 
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.home);
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -48,6 +59,27 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
+
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+        if (user == null) {
+            Intent intent = new Intent(MainActivity.this, SignInActivity.class);
+            startActivity(intent);
+            finish();
+        } else {
+            Toast.makeText(MainActivity.this, "Selamat datang " + user.getEmail(), Toast.LENGTH_SHORT).show();
+        }
+
+        // Handle intent from SearchAdapter
+        Intent intent = getIntent();
+        if (intent != null && intent.getExtras() != null) {
+            ApiResponse.Movie movie = (ApiResponse.Movie) intent.getSerializableExtra("movie");
+            if (movie != null) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("film", movie);
+                replaceFragmentWithBundle(new PeminjamanFragment(), bundle);
+            }
+        }
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();

@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"  />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"  />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"  />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"   />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"   />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"   />
 
     <application
         android:allowBackup="true"
@@ -21,7 +21,13 @@
             android:name=".Activity.Profile.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.Search.SearchActivity"
+            android:name=".Activity.Profile.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Profile.WishlistActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Authentication.SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".Activity.Authentication.SignInActivity"
@@ -32,6 +38,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Activity.Search.SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activity.Home.MainActivity"
+            android:exported="false" />
         <activity
             android:name=".Activity.Search.SearchActivity"
             android:exported="false" />
