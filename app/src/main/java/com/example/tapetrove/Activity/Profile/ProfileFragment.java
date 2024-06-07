@@ -16,29 +16,52 @@ import com.example.tapetrove.R;
 public class ProfileFragment extends Fragment {
 
     private Button btEdit, btOut;
-    private LinearLayout content2, content3, content4, content5, content6, content7;
+    private LinearLayout menuRent, menuWishlist, menuEditProfile, menuDelAcc, menuSignOut;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
-        btEdit = view.findViewById(R.id.btEdit);
-        btOut = view.findViewById(R.id.btOut);
-
-        btEdit.setOnClickListener(v -> navigateToFragment(new EditProfileFragment()));
-        btOut.setOnClickListener(v -> {
-            // Add logic to handle logout if necessary
+// Inisialisasi menu
+        menuRent = view.findViewById(R.id.menuRent);
+        menuWishlist = view.findViewById(R.id.menuWishlist);
+        menuEditProfile = view.findViewById(R.id.menuEditProfile);
+        menuDelAcc = view.findViewById(R.id.menuDelAcc);
+        menuSignOut = view.findViewById(R.id.menuSignOut);
+        menuRent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToFragment(new HistoryFragment());
+            }
         });
 
-//        View.OnClickListener menuClickListener = v -> navigateToFragment(new ComingSoonFragment());
+        menuWishlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToFragment(new WishlistFragment());
+            }
+        });
 
-//        content2.setOnClickListener(menuClickListener);
-//        content3.setOnClickListener(menuClickListener);
-//        content4.setOnClickListener(menuClickListener);
-//        content5.setOnClickListener(menuClickListener);
-//        content6.setOnClickListener(menuClickListener);
-//        content7.setOnClickListener(menuClickListener);
+        menuEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToFragment(new EditProfileFragment());
+            }
+        });
+
+        menuDelAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        menuSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut();
+            }
+        });
 
         return view;
     }
@@ -48,5 +71,9 @@ public class ProfileFragment extends Fragment {
         transaction.replace(R.id.frame_layout, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    private void signOut() {
+
     }
 }

@@ -16,8 +16,8 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_marginTop="10dp"
-        app:layout_constraintStart_toEndOf="@+id/ibAvatar"
-        app:layout_constraintTop_toTopOf="@+id/ibAvatar"
+        app:layout_constraintStart_toEndOf="@+id/ivAvatar"
+        app:layout_constraintTop_toTopOf="@+id/ivAvatar"
         tools:text="Budi Setiawan" />
 
     <TextView
@@ -27,12 +27,12 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="10dp"
         android:textColor="@color/white"
-        app:layout_constraintStart_toEndOf="@+id/ibAvatar"
+        app:layout_constraintStart_toEndOf="@+id/ivAvatar"
         app:layout_constraintTop_toBottomOf="@+id/tvUsername"
         tools:text="budisetiawan@google.com" />
 
     <ImageButton
-        android:id="@+id/ibAvatar"
+        android:id="@+id/ivAvatar"
         android:layout_width="85dp"
         android:layout_height="85dp"
         android:clickable="true"

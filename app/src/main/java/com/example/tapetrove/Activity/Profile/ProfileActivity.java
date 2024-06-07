@@ -30,9 +30,14 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         replaceFragment(new ProfileFragment());
 
-        BottomNavigationView bottomNavigationView =
-                findViewById(R.id.bottomNavigation);
-        bottomNavigationView.setSelectedItemId(R.id.home);
+        if (getIntent() != null && "wishlist".equals(getIntent().getStringExtra("openFragment"))) {
+            replaceFragment(new WishlistFragment());
+        } else {
+            replaceFragment(new ProfileFragment());
+        }
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigation);
+        bottomNavigationView.setSelectedItemId(R.id.profile);
         bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.home) {
                 // Handle Home item click

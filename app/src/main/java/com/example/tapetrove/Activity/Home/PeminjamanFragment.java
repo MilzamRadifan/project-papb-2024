@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -18,7 +19,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.tapetrove.Activity.Profile.WishlistActivity;
+import com.example.tapetrove.Activity.Profile.ProfileActivity;
+import com.example.tapetrove.Activity.Profile.WishlistFragment;
 import com.example.tapetrove.Api.ApiResponse;
 import com.example.tapetrove.Api.Genre;
 import com.example.tapetrove.Api.Trailer;
@@ -185,7 +187,8 @@ public class PeminjamanFragment extends Fragment {
                                                 .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
-                                                        Intent intent = new Intent(getActivity(), WishlistActivity.class);
+                                                        Intent intent = new Intent(getActivity(), ProfileActivity.class);
+                                                        intent.putExtra("openFragment", "wishlist");
                                                         startActivity(intent);
                                                     }
                                                 });

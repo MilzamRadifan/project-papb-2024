@@ -61,7 +61,6 @@ public class EditProfileFragment extends Fragment {
         etNoTelpon = view.findViewById(R.id.etnomorhp);
         etAlamat = view.findViewById(R.id.etAlamat);
         Button btSimpan = view.findViewById(R.id.btSimpan);
-        Button btCancel = view.findViewById(R.id.btCancel);
 
 //        mAuth = FirebaseAuth.getInstance();
 //        mDatabase = FirebaseDatabase.getInstance().getReference("users");
@@ -106,12 +105,6 @@ public class EditProfileFragment extends Fragment {
             }
         });
 
-        btCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Kembali ke ProfileFragment
-                requireActivity().getSupportFragmentManager().popBackStack();
-            }
-        });
+
     }
 }

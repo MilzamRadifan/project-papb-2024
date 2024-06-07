@@ -1,8 +1,6 @@
 package com.example.tapetrove.Activity.Profile;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,98 +10,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.tapetrove.Activity.Search.SearchAdapter;
 import com.example.tapetrove.Database.Wishlist;
 import com.example.tapetrove.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class WishlistActivity extends AppCompatActivity {
-  private FirebaseAuth mAuth;
-  private DatabaseReference databaseReference;
-  private FirebaseUser curUser;
-  RecyclerView recyclerView;
-  private WishlistAdapter adapter;
-  private TextView tvGreet;
-
-  List<Wishlist> wishlistList = new ArrayList<>();
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_wishlist);
-
-    recyclerView = findViewById(R.id.rvWishlist);
-    recyclerView.setHasFixedSize(true);
-    recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-    mAuth = FirebaseAuth.getInstance();
-    curUser = mAuth.getCurrentUser();
-    databaseReference = FirebaseDatabase.getInstance().getReference("wishlist").child(curUser.getUid());
-
-    adapter = new WishlistAdapter(this, wishlistList);
-    recyclerView.setAdapter(adapter);
-
-    tvGreet = findViewById(R.id.tvGreet);
-    tvGreet.setText(curUser.getEmail() + " Wishlist");
-
-
-
-    fetchDataWislist();
-  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-    fetchDataWislist();
-  }
-
-  private void fetchDataWislist() {
-    databaseReference.addValueEventListener(new ValueEventListener() {
-      @Override
-      public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        wishlistList.clear();
-        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-          Wishlist wishlist = snapshot.getValue(Wishlist.class);
-          if (wishlist != null) {
-            wishlist.setKey(snapshot.getKey());
-            wishlistList.add(wishlist);
-          }
-        }
-        adapter.notifyDataSetChanged();
-      }
-
-      @Override
-      public void onCancelled(@NonNull DatabaseError databaseError) {
-        Toast.makeText(getApplicationContext(), "Failed fetch data", Toast.LENGTH_SHORT).show();
-      }
-    });
-  }
-}
-
-class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHolder> {
+public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHolder> {
   private final Context context;
   private final List<Wishlist> wishlistList;
   private DatabaseReference databaseReference;
@@ -131,9 +59,9 @@ class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHolder> {
     String url = baseUrl + w.getMovieId();
     OkHttpClient client = new OkHttpClient();
     Request request = new Request.Builder()
-            .url(url)
-            .addHeader("Authorization", "Bearer " + token)
-            .build();
+        .url(url)
+        .addHeader("Authorization", "Bearer " + token)
+        .build();
 
     new Thread(() -> {
       try (Response response = client.newCall(request).execute()) {
@@ -177,7 +105,7 @@ class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHolder> {
     }
 
     databaseReference = FirebaseDatabase.getInstance().getReference("wishlist")
-            .child(user.getUid()).child(wishlist.getKey());
+        .child(user.getUid()).child(wishlist.getKey());
 
     databaseReference.removeValue().addOnSuccessListener(aVoid -> {
       if (adapterPosition < wishlistList.size()) {

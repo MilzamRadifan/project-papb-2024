@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.tapetrove.Activity.Home.MainActivity;
+import com.example.tapetrove.Activity.Profile.ProfileActivity;
 import com.example.tapetrove.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -76,11 +77,13 @@ public class SearchActivity extends AppCompatActivity {
         return true;
       } else if (item.getItemId() == R.id.search) {
         // Handle Search item click
+        startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+        finish();
         return true;
       } else if (item.getItemId() == R.id.profile) {
         // Handle Profile item click
-//        startActivity(new Intent(getApplicationContext(), Profile.class));
-//        finish();
+        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+        finish();
         return true;
       }
       return false;

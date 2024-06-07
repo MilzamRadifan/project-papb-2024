@@ -12,21 +12,19 @@
     tools:context=".Activity.Profile.ProfileFragment"
     android:id="@+id/frame_Layout">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:orientation="horizontal">
 
-        <ImageButton
-            android:id="@+id/ibAvatar"
+        <ImageView
+            android:id="@+id/ivAvatar"
             android:layout_width="85dp"
             android:layout_height="85dp"
-            android:clickable="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_launcher_foreground"/>
+            tools:src="@tools:sample/avatars" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,8 +40,8 @@
                 android:textColor="@color/white"
                 android:textSize="21sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/ibAvatar"
-                app:layout_constraintTop_toTopOf="@+id/ibAvatar"
+                app:layout_constraintStart_toEndOf="@+id/ivAvatar"
+                app:layout_constraintTop_toTopOf="@+id/ivAvatar"
                 tools:text="Budi Setiawan" />
 
             <TextView
@@ -53,47 +51,31 @@
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/white"
-                app:layout_constraintStart_toEndOf="@+id/ibAvatar"
+                app:layout_constraintStart_toEndOf="@+id/ivAvatar"
                 app:layout_constraintTop_toBottomOf="@+id/tvUsername"
                 tools:text="budisetiawan@google.com" />
         </LinearLayout>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:paddingHorizontal="20dp"
-        android:layout_marginTop="125dp"
-        android:backgroundTint="#095DC2"
-        android:clickable="true"
-        android:text="Edit Profile"
-        android:background="@drawable/bg_button_white"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/profileLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
+<!--Menu-->
     <LinearLayout
         android:id="@+id/menuProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
-        app:layout_constraintTop_toBottomOf="@+id/btEdit"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/btOut"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        android:orientation="vertical">
-
+        app:layout_constraintTop_toBottomOf="@+id/btEdit">
+<!--Rent History-->
         <LinearLayout
-            android:id="@+id/content2"
+            android:id="@+id/menuRent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:orientation="horizontal"
             android:padding="15dp"
-            android:layout_marginTop="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/content1">
@@ -103,211 +85,161 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
+                android:src="@drawable/riwayat"
                 app:layout_constraintBottom_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/pengaturan" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvmenupengaturan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pengaturan"
                 android:layout_marginStart="20dp"
                 android:drawableRight="@drawable/arrow"
+                android:paddingRight="20dp"
+                android:text="Rent History"
                 android:textColor="@color/white"
                 android:textSize="21sp"
-                android:paddingRight="20dp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/ivmenupengakuan"/>
+                app:layout_constraintStart_toStartOf="@+id/ivmenupengakuan" />
         </LinearLayout>
-
+<!--Wishlist-->
         <LinearLayout
-            android:id="@+id/content3"
+            android:id="@+id/menuWishlist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/content2">
+            app:layout_constraintTop_toBottomOf="@+id/menuRent">
 
             <ImageView
                 android:id="@+id/ivmenubahasa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:src="@drawable/daftarpinjam"
                 app:layout_constraintBottom_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/bahasa" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvmenubahasa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bahasa Aplikasi"
                 android:layout_marginStart="20dp"
                 android:drawableRight="@drawable/arrow"
+                android:paddingRight="20dp"
+                android:text="Wishlist"
                 android:textColor="@color/white"
                 android:textSize="21sp"
-                android:paddingRight="20dp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/ivmenubahasa"/>
+                app:layout_constraintStart_toStartOf="@+id/ivmenubahasa" />
         </LinearLayout>
-
+<!--Edit Profile-->
         <LinearLayout
-            android:id="@+id/content4"
+            android:id="@+id/menuEditProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/content3">
+            app:layout_constraintTop_toBottomOf="@+id/menuWishlist">
 
             <ImageView
                 android:id="@+id/ivmenunotif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
+                android:src="@drawable/edit_profile"
                 app:layout_constraintBottom_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/notifikasi" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvmenunotif"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Notifikasi"
                 android:layout_marginStart="20dp"
                 android:drawableRight="@drawable/arrow"
+                android:paddingRight="20dp"
+                android:text="Edit Profile"
                 android:textColor="@color/white"
                 android:textSize="21sp"
-                android:paddingRight="20dp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/ivmenunotif"/>
+                app:layout_constraintStart_toStartOf="@+id/ivmenunotif" />
         </LinearLayout>
-
+<!--Delete Account-->
         <LinearLayout
-            android:id="@+id/content5"
+            android:id="@+id/menuDelAcc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/content4">
+            app:layout_constraintTop_toBottomOf="@+id/menuEditProfile">
 
             <ImageView
                 android:id="@+id/ivmenuhelp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="23dp"
+                android:layout_height="24dp"
                 android:layout_marginStart="5dp"
+                android:src="@drawable/del_acc"
                 app:layout_constraintBottom_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/help" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvmenuhelp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Bantuan &amp; Dukungan"
                 android:layout_marginStart="20dp"
                 android:drawableRight="@drawable/arrow"
+                android:paddingRight="20dp"
+                android:text="Delete Account"
                 android:textColor="@color/white"
                 android:textSize="21sp"
-                android:paddingRight="20dp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/ivmenuhelp"/>
+                app:layout_constraintStart_toStartOf="@+id/ivmenuhelp" />
         </LinearLayout>
-
+<!--Sign Out-->
         <LinearLayout
-            android:id="@+id/content6"
+            android:id="@+id/menuSignOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/content5">
+            app:layout_constraintTop_toBottomOf="@+id/menuDelAcc">
 
             <ImageView
                 android:id="@+id/ivmenuriwayat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:src="@drawable/sign_out"
                 app:layout_constraintBottom_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/riwayat" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvmenuriwayat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Riwayat Peminjaman"
                 android:layout_marginStart="20dp"
                 android:drawableRight="@drawable/arrow"
+                android:paddingRight="20dp"
+                android:text="Sign Out"
                 android:textColor="@color/white"
                 android:textSize="21sp"
-                android:paddingRight="20dp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/ivmenuriwayat"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/content7"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="15dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/content6">
-
-            <ImageView
-                android:id="@+id/ivmenudaftarpinjaman"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                app:layout_constraintBottom_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/daftarpinjam" />
-
-            <TextView
-                android:id="@+id/tvmenudaftarpinjaman"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Daftar Pinjaman"
-                android:layout_marginStart="24dp"
-                android:drawableRight="@drawable/arrow"
-                android:textColor="@color/white"
-                android:textSize="21sp"
-                android:paddingRight="20dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/ivmendaftarpinjaman"/>
+                app:layout_constraintStart_toStartOf="@+id/ivmenuriwayat" />
         </LinearLayout>
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="600dp"
-        android:paddingHorizontal="20dp"
-        android:backgroundTint="#095DC2"
-        android:clickable="true"
-        android:text="Keluar"
-        android:textColor="@color/white"
-        android:background="@drawable/bg_button_white"
-        app:layout_constraintTop_toBottomOf="@id/menuProfile"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </FrameLayout>
