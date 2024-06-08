@@ -14,7 +14,7 @@
         android:layout_above="@id/tvJudul"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="5dp"
-        android:text="Berikan Rating untuk Film"
+        android:text="Rate This Movie"
         android:textAlignment="center"
         android:textSize="13dp"
         android:textColor="#fbfdff"
@@ -28,7 +28,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
         android:textColor="#fbfdff"
-        android:text="Pengabdi Setan 2"
+        android:text=""
         android:textStyle="bold"
         android:textSize="27dp"
         android:textAlignment="center"/>
@@ -52,7 +52,7 @@
         android:layout_marginTop="30dp"
         android:paddingHorizontal="30dp"
         android:background="@drawable/bg_button_white"
-        android:text="Kirim Rating" />
+        android:text="Proceed to Review" />
 
     <Button
         android:id="@+id/btnDeleteRating"
@@ -63,6 +63,6 @@
         android:layout_marginTop="20dp"
         android:paddingHorizontal="30dp"
         android:background="@drawable/bg_button_white"
-        android:text="Hapus Rating"
+        android:text="Delete Review"
         android:visibility="gone" />
 </RelativeLayout>

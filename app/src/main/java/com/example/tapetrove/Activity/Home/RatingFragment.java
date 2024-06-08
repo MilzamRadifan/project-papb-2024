@@ -65,21 +65,40 @@ public class RatingFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference("rating").child(firebaseUser.getUid());
+        databaseReference = FirebaseDatabase.getInstance().getReference("ratings").child(String.valueOf(idFilm)).child(firebaseUser.getUid());
 
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    btnDeleteRating.setVisibility(View.VISIBLE);
+                    Long ratingVal = snapshot.child("rating").getValue(Long.class);
+                    review = snapshot.child("comment").getValue(String.class);
+                    assert ratingVal != null;
+                    rbRatingBar.setRating(ratingVal.floatValue());
+                    rating = ratingVal;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        tvJudul.setText(review);
         rbRatingBar.setOnRatingBarChangeListener((ratingBar, v, b) -> rating = v);
 
         btnSubmit.setOnClickListener(v -> {
             if (rating == 1) {
-                showToast("Mengecewakan");
+                showToast("Very Unsatisfied");
             } else if (rating == 2) {
-                showToast("Sedikit Mengecewakan");
+                showToast("Unsatisfied");
             } else if (rating == 3) {
-                showToast("Biasa Saja");
+                showToast("Neutral");
             } else if (rating == 4) {
-                showToast("Woww, Bagus");
+                showToast("Satisfied!");
             } else if (rating == 5) {
-                showToast("Film ini Luar Biasa");
+                showToast("Very Satisfied!");
             }
 
             Bundle bundle = new Bundle();
@@ -98,11 +117,12 @@ public class RatingFragment extends Fragment {
         });
 
         btnDeleteRating.setOnClickListener(v -> {
-            databaseReference.child(String.valueOf(idFilm)).removeValue()
+            databaseReference.removeValue()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             showToast("Rating deleted successfully");
                             rbRatingBar.setRating(0);
+                            requireActivity().getSupportFragmentManager().popBackStack();
                         } else {
                             showToast("Failed to delete rating");
                         }
@@ -110,8 +130,6 @@ public class RatingFragment extends Fragment {
         });
 
         fetchMovieDetails();
-        checkExistingRating();
-
         return view;
     }
 
@@ -147,28 +165,6 @@ public class RatingFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }
-        });
-    }
-
-    private void checkExistingRating() {
-        databaseReference.child(String.valueOf(idFilm)).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    Rating existingRating = snapshot.getValue(Rating.class);
-                    if (existingRating != null) {
-                        rating = existingRating.getRating();
-                        rbRatingBar.setRating(rating);
-                        btnDeleteRating.setVisibility(View.VISIBLE);
-                        review = existingRating.getComment();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                showToast("Failed to check existing rating");
             }
         });
     }
