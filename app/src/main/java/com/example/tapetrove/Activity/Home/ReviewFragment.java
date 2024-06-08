@@ -105,5 +105,11 @@ public class ReviewFragment extends Fragment {
     private void showToast(String message) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
     }
+
+    private void returnTwice() {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.popBackStack();
+        fragmentManager.popBackStack();
+    }
 }
 
