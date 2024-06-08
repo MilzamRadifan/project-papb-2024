@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000519"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView2"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
     tools:context=".Activity.Profile.ProfileFragment"
-    android:id="@+id/frame_Layout">
+    android:id="@+id/frame_layout">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,8 +18,6 @@
             android:id="@+id/ivAvatar"
             android:layout_width="85dp"
             android:layout_height="85dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars" />
 
         <LinearLayout
@@ -37,12 +31,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="12dp"
-                android:textColor="@color/white"
+                android:textColor="@android:color/white"
                 android:textSize="21sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/ivAvatar"
-                app:layout_constraintTop_toTopOf="@+id/ivAvatar"
-                tools:text="Budi Setiawan" />
+                android:text="Budi Setiawan" />
 
             <TextView
                 android:id="@+id/tvEmail"
@@ -50,45 +42,34 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="28dp"
                 android:layout_marginTop="5dp"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toEndOf="@+id/ivAvatar"
-                app:layout_constraintTop_toBottomOf="@+id/tvUsername"
-                tools:text="budisetiawan@google.com" />
+                android:textColor="@android:color/white"
+                android:text="budisetiawan@google.com" />
         </LinearLayout>
     </LinearLayout>
-<!--Menu-->
+
+    <!--Menu-->
     <LinearLayout
         android:id="@+id/menuProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/btOut"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btEdit">
-<!--Rent History-->
+        android:orientation="vertical">
+
+        <!--Rent History-->
         <LinearLayout
             android:id="@+id/menuRent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:orientation="horizontal"
-            android:padding="15dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/content1">
+            android:padding="15dp">
 
             <ImageView
                 android:id="@+id/ivmenupengaturan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:src="@drawable/riwayat"
-                app:layout_constraintBottom_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:src="@drawable/riwayat" />
 
             <TextView
                 android:id="@+id/tvmenupengaturan"
@@ -100,29 +81,23 @@
                 android:text="Rent History"
                 android:textColor="@color/white"
                 android:textSize="21sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/ivmenupengakuan" />
+                android:textStyle="bold" />
         </LinearLayout>
-<!--Wishlist-->
+
+        <!--Wishlist-->
         <LinearLayout
             android:id="@+id/menuWishlist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="15dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/menuRent">
+            android:padding="15dp">
 
             <ImageView
                 android:id="@+id/ivmenubahasa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:src="@drawable/daftarpinjam"
-                app:layout_constraintBottom_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:src="@drawable/daftarpinjam" />
 
             <TextView
                 android:id="@+id/tvmenubahasa"
@@ -134,29 +109,23 @@
                 android:text="Wishlist"
                 android:textColor="@color/white"
                 android:textSize="21sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/ivmenubahasa" />
+                android:textStyle="bold" />
         </LinearLayout>
-<!--Edit Profile-->
+
+        <!--Edit Profile-->
         <LinearLayout
             android:id="@+id/menuEditProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="15dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/menuWishlist">
+            android:padding="15dp">
 
             <ImageView
                 android:id="@+id/ivmenunotif"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:src="@drawable/edit_profile"
-                app:layout_constraintBottom_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:src="@drawable/edit_profile" />
 
             <TextView
                 android:id="@+id/tvmenunotif"
@@ -168,29 +137,23 @@
                 android:text="Edit Profile"
                 android:textColor="@color/white"
                 android:textSize="21sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/ivmenunotif" />
+                android:textStyle="bold" />
         </LinearLayout>
-<!--Delete Account-->
+
+        <!--Delete Account-->
         <LinearLayout
             android:id="@+id/menuDelAcc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="15dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/menuEditProfile">
+            android:padding="15dp">
 
             <ImageView
                 android:id="@+id/ivmenuhelp"
                 android:layout_width="23dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="5dp"
-                android:src="@drawable/del_acc"
-                app:layout_constraintBottom_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:src="@drawable/del_acc" />
 
             <TextView
                 android:id="@+id/tvmenuhelp"
@@ -202,29 +165,23 @@
                 android:text="Delete Account"
                 android:textColor="@color/white"
                 android:textSize="21sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/ivmenuhelp" />
+                android:textStyle="bold" />
         </LinearLayout>
-<!--Sign Out-->
+
+        <!--Sign Out-->
         <LinearLayout
             android:id="@+id/menuSignOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="15dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/menuDelAcc">
+            android:padding="15dp">
 
             <ImageView
                 android:id="@+id/ivmenuriwayat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:src="@drawable/sign_out"
-                app:layout_constraintBottom_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:src="@drawable/sign_out" />
 
             <TextView
                 android:id="@+id/tvmenuriwayat"
@@ -236,10 +193,7 @@
                 android:text="Sign Out"
                 android:textColor="@color/white"
                 android:textSize="21sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/ivmenuriwayat" />
+                android:textStyle="bold" />
         </LinearLayout>
-
     </LinearLayout>
-
 </FrameLayout>

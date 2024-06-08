@@ -38,7 +38,7 @@
             android:inputType="text"
             android:paddingLeft="30dp"
             android:paddingRight="20dp"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/white"
             android:textColorHint="#767676" />
 
         <EditText
@@ -51,7 +51,7 @@
             android:inputType="text|phone"
             android:paddingLeft="30dp"
             android:paddingRight="20dp"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/white"
             android:textColorHint="#767676" />
 
         <EditText
@@ -64,7 +64,7 @@
             android:inputType="text"
             android:paddingLeft="30dp"
             android:paddingRight="20dp"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/white"
             android:textColorHint="#767676" />
 
     </LinearLayout>
