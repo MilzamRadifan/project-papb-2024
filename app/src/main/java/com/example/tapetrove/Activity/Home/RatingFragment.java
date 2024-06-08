@@ -14,7 +14,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.tapetrove.Database.Rating;
 import com.example.tapetrove.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -32,39 +40,72 @@ public class RatingFragment extends Fragment {
     String title;
     int idFilm;
     TextView tvJudul;
+    String review;
     RatingBar rbRatingBar;
     Button btnSubmit;
+    Button btnDeleteRating;
+    FirebaseAuth mAuth;
+    DatabaseReference databaseReference;
+    FirebaseUser firebaseUser;
+
     public RatingFragment() {}
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(getArguments() != null) {
+        if (getArguments() != null) {
             idFilm = getArguments().getInt("idFilm", 0);
         }
+
         View view = inflater.inflate(R.layout.fragment_rating, container, false);
         tvJudul = view.findViewById(R.id.tvJudul);
         rbRatingBar = view.findViewById(R.id.rbRatingBar);
         btnSubmit = view.findViewById(R.id.btnSubmit);
+        btnDeleteRating = view.findViewById(R.id.btnDeleteRating);
 
+        mAuth = FirebaseAuth.getInstance();
+        firebaseUser = mAuth.getCurrentUser();
+        databaseReference = FirebaseDatabase.getInstance().getReference("ratings").child(String.valueOf(idFilm)).child(firebaseUser.getUid());
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    btnDeleteRating.setVisibility(View.VISIBLE);
+                    Long ratingVal = snapshot.child("rating").getValue(Long.class);
+                    review = snapshot.child("comment").getValue(String.class);
+                    assert ratingVal != null;
+                    rbRatingBar.setRating(ratingVal.floatValue());
+                    rating = ratingVal;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        tvJudul.setText(review);
         rbRatingBar.setOnRatingBarChangeListener((ratingBar, v, b) -> rating = v);
 
         btnSubmit.setOnClickListener(v -> {
             if (rating == 1) {
-                showToast("Mengecewakan");
+                showToast("Very Unsatisfied");
             } else if (rating == 2) {
-                showToast("Sedikit Mengecewakan");
+                showToast("Unsatisfied");
             } else if (rating == 3) {
-                showToast("Biasa Saja");
+                showToast("Neutral");
             } else if (rating == 4) {
-                showToast("Woww, Bagus");
+                showToast("Satisfied!");
             } else if (rating == 5) {
-                showToast("Film ini Luar Biasa");
+                showToast("Very Satisfied!");
             }
 
             Bundle bundle = new Bundle();
             bundle.putString("title", title);
             bundle.putInt("idFilm", idFilm);
+            bundle.putFloat("rating", rating);
+            bundle.putString("review", review);
 
             ReviewFragment reviewFragment = new ReviewFragment();
             reviewFragment.setArguments(bundle);
@@ -75,10 +116,27 @@ public class RatingFragment extends Fragment {
             transaction.commit();
         });
 
+        btnDeleteRating.setOnClickListener(v -> {
+            databaseReference.removeValue()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            showToast("Rating deleted successfully");
+                            rbRatingBar.setRating(0);
+                            requireActivity().getSupportFragmentManager().popBackStack();
+                        } else {
+                            showToast("Failed to delete rating");
+                        }
+                    });
+        });
+
+        fetchMovieDetails();
+        return view;
+    }
+
+    private void fetchMovieDetails() {
         String urlAPI = "https://api.themoviedb.org/3/movie/" + idFilm;
         String token = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjMWZjN2Y5MmExOTcyYTQwMTY3Y2Y1ZGE4ZjYxN2RkNSIsInN1YiI6IjY2MjY1ZmZlN2E5N2FiMDE2MzhkNzMwNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uuoscwfkjxJyZ_gx9x8KjZBz64zue2OKfS336Peee6k";
 
-        tvJudul.setText(urlAPI);
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(urlAPI)
@@ -109,9 +167,10 @@ public class RatingFragment extends Fragment {
                 }
             }
         });
-        return view;
     }
+
     private void showToast(String message) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
+
