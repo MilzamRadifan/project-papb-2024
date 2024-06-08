@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:background="#000519">
+
+    <TextView
+        android:id="@+id/tvNamaFilm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:textSize="21sp"
+        android:textColor="#FBFDFF"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/btDetail"
+        app:layout_constraintStart_toEndOf="@+id/ivfilm"
+        app:layout_constraintTop_toTopOf="@+id/ivfilm"
+        tools:text="MEGAN" />
+
+    <TextView
+        android:id="@+id/tvHistoryGenre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="#FBFDFF"
+        app:layout_constraintEnd_toStartOf="@+id/btDetail"
+        app:layout_constraintStart_toEndOf="@+id/ivfilm"
+        app:layout_constraintTop_toBottomOf="@+id/tvNamaFilm"
+        tools:text="Genre: Horror, Thriller, Mystery"/>
+
+    <ImageView
+        android:id="@+id/ivfilm"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/m3gan" />
+
+    <Button
+        android:id="@+id/btDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#095DC2"
+        android:textColor="#FBFDFF"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:text="Detail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

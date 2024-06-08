@@ -64,8 +64,7 @@ public class FilmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public RecyclerView.ViewHolder
     onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View vh = LayoutInflater.from(this.context)
-                .inflate(R.layout.row_top_poster, parent, false);
+        View vh = LayoutInflater.from(this.context).inflate(R.layout.row_top_poster, parent, false);
         return new VH(vh);
     }
 

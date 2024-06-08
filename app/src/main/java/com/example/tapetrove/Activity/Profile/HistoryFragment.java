@@ -2,13 +2,29 @@ package com.example.tapetrove.Activity.Profile;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.tapetrove.Activity.Home.MovieAdapter;
+import com.example.tapetrove.Database.Peminjaman;
 import com.example.tapetrove.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +41,11 @@ public class HistoryFragment extends Fragment {
   // TODO: Rename and change types of parameters
   private String mParam1;
   private String mParam2;
+  private FirebaseAuth firebaseAuth;
+  private FirebaseDatabase firebaseDatabase;
+  private DatabaseReference databaseReference;
+  private RecyclerView rvHistory;
+  private List<Peminjaman> peminjamanList;
 
   public HistoryFragment() {
     // Required empty public constructor
@@ -61,6 +82,38 @@ public class HistoryFragment extends Fragment {
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_history, container, false);
+    View view = inflater.inflate(R.layout.fragment_history, container, false);
+    firebaseAuth = FirebaseAuth.getInstance();
+    firebaseDatabase = FirebaseDatabase.getInstance();
+    databaseReference = firebaseDatabase.getReference("peminjaman").child(firebaseAuth.getUid());
+    rvHistory = view.findViewById(R.id.rvHistory);
+    peminjamanList = new ArrayList<>();
+
+    return view;
+  }
+  @Override
+  public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    super.onViewCreated(view, savedInstanceState);
+
+    databaseReference.addValueEventListener(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot snapshot) {
+        peminjamanList.clear();
+        for (DataSnapshot peminjamanSnapshot : snapshot.getChildren()) {
+          Peminjaman peminjaman = peminjamanSnapshot.getValue(Peminjaman.class);
+          peminjamanList.add(peminjaman);
+        }
+        HistoryAdapter historyAdapter = new HistoryAdapter(getContext(), peminjamanList);
+        rvHistory.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvHistory.setAdapter(historyAdapter);
+      }
+
+      @Override
+      public void onCancelled(@NonNull DatabaseError error) {
+        Log.e("firebase", "Error getting data", error.toException());
+      }
+    });
+
+
   }
 }

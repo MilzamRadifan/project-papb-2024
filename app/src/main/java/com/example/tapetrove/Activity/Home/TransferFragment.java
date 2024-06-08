@@ -183,10 +183,6 @@ public class TransferFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     // Memulai aktivitas ProsesActivity saat tombol diklik
-//          Intent intent = new Intent(TransferActivity.this, ProsesActivity.class);
-//          intent.putExtra("film",(Serializable) movie);
-//          intent.putExtra("namaBank", namaBank);
-//          startActivity(intent);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("film", movie);
                     bundle.putString("namaBank", namaBank);
@@ -202,10 +198,6 @@ public class TransferFragment extends Fragment {
             button3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // Memulai aktivitas ProsesActivity saat tombol diklik
-//          Intent intent = new Intent(TransferActivity.this, MainActivity.class);
-//
-//          startActivity(intent);
                     ((MainActivity) getContext()).replaceFragment(new HomeFragment());
                 }
             });

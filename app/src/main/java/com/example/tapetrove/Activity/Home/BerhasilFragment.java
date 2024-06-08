@@ -12,9 +12,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.tapetrove.Api.ApiResponse;
+import com.example.tapetrove.Database.Peminjaman;
 import com.example.tapetrove.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
 
 public class BerhasilFragment extends Fragment {
@@ -24,6 +31,10 @@ public class BerhasilFragment extends Fragment {
 //    private Peminjaman moviedb;
 //    private PeminjamanViewModel peminjamanViewModel;
     private String mParam1, mParam2;
+
+    private FirebaseAuth mAuth;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
 
     public BerhasilFragment() {
         // Required empty public constructor
@@ -48,12 +59,13 @@ public class BerhasilFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_berhasil, container, false);
-
         button4=view.findViewById(R.id.button4);
+        mAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("peminjaman").child(mAuth.getUid());
         return view;
     }
 
@@ -61,52 +73,35 @@ public class BerhasilFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        peminjamanViewModel = obtainViewModel((AppCompatActivity) requireActivity());
-//        moviedb = new Peminjaman();
 
         Bundle bundle = getArguments();
         if (bundle != null) {
             ApiResponse.Movie movie = (ApiResponse.Movie) bundle.getSerializable("film");
-            String namaBank = bundle.getString("namaBank");
+            String metodePembayaran = bundle.getString("namaBank");
             String statusPembayaran = bundle.getString("statusPembayaran");
 
-            Gson gson = new Gson();
-            String json = gson.toJson(movie);
+//            Gson gson = new Gson();
+//            String json = gson.toJson(movie);
 
-//            moviedb.setId_user(1);
-//            moviedb.setId_movie(movie.getId());
-//            moviedb.setMovie(json);
-//            moviedb.setHarga_sewa(30000);
-//            moviedb.setMetode_pembayaran(namaBank);
-//            moviedb.setTanggal_sewa(DateHelper.getCurrentDate());
-//            moviedb.setTanggal_kembali("");
-//            moviedb.setTenggat_kembali(DateHelper.getReturnDue());
-//            moviedb.setStatus_peminjaman("Rental");
-//
-//            peminjamanViewModel.insert(moviedb);
-//      textView33.setText(movie.getTitle());
-//      textView32.setText(namaBank);
-//      button4.setText(statusPembayaran);
+            Peminjaman peminjaman =new Peminjaman(mAuth.getUid(),movie.getId(),30000,metodePembayaran);
+            databaseReference.push().setValue(peminjaman).addOnSuccessListener((MainActivity) getContext(), new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Toast.makeText((MainActivity) getContext(), "Add data", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener((MainActivity) getContext(), new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getContext(), "Failed to Add data", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                String statusPembayaran = getIntent().getStringExtra("status_pembayaran");
-//                statusPembayaran="berhasil";
-//                // Kode untuk berpindah ke activity pembayaran
-//                Intent intent = new Intent(BerhasilActivity.this, PeminjamanActivity.class); // Gantilah PembayaranActivity.class dengan nama activity pembayaran Anda
-//                intent.putExtra("status_pembayaran", statusPembayaran);
-//                startActivity(intent);
-//        Intent intent = new Intent(BerhasilActivity.this, MainActivity.class);
-//        startActivity(intent);
                 ((MainActivity) getContext()).replaceFragment(new HomeFragment());
             }
         });
     }
-//    @NonNull
-//    private static PeminjamanViewModel
-//    obtainViewModel(AppCompatActivity activity) {
-//        ViewModelFactory factory = ViewModelFactory.getInstance(activity.getApplication());
-//        return new ViewModelProvider(activity, factory).get(PeminjamanViewModel.class);
-//    }
+
 }

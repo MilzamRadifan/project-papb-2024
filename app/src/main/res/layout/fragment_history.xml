@@ -3,12 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.Profile.HistoryFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#000519"
+    tools:context=".Activity.Profile.HistoryFragment"
+    android:id="@+id/frame_Layout1">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvHistory"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </FrameLayout>
