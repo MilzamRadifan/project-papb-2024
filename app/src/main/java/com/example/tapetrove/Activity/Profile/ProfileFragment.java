@@ -1,5 +1,6 @@
 package com.example.tapetrove.Activity.Profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,8 +14,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.tapetrove.Activity.Authentication.SignInActivity;
+import com.example.tapetrove.Activity.Home.MainActivity;
 import com.example.tapetrove.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,7 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileFragment extends Fragment {
 
     private Button btEdit, btOut;
-    private LinearLayout menuRent, menuWishlist, menuEditProfile, menuDelAcc, menuSignOut;
+    private LinearLayout menuRent, menuWishlist, menuEditProfile, menuDelAcc, menuSignOut, menuChangePass;
     TextView tvUsername, tvEmail;
     DatabaseReference useRef;
 
@@ -67,6 +73,8 @@ public class ProfileFragment extends Fragment {
         menuEditProfile = view.findViewById(R.id.menuEditProfile);
         menuDelAcc = view.findViewById(R.id.menuDelAcc);
         menuSignOut = view.findViewById(R.id.menuSignOut);
+        menuChangePass = view.findViewById(R.id.menuChangePass);
+
         menuRent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,31 +96,60 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        menuChangePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToFragment(new ChangePasswordFragment());
+            }
+        });
+
         menuDelAcc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                deleteAccount();
             }
         });
 
         menuSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signOut();
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getContext(), SignInActivity.class));
             }
         });
 
         return view;
     }
 
+    private void deleteAccount() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String userId = user.getUid();
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userId);
+            databaseReference.removeValue().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    user.delete()
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(getContext(), "Account deleted successfully", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getContext(), SignInActivity.class));
+                                }
+                            }
+                        });
+                } else {
+                    Toast.makeText(getActivity(), "Failed to delete user data: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+
     private void navigateToFragment(Fragment fragment) {
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
-    }
-
-    private void signOut() {
-
     }
 }

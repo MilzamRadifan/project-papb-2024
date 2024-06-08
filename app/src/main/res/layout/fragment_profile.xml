@@ -14,36 +14,30 @@
         android:padding="15dp"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/ivAvatar"
-            android:layout_width="85dp"
-            android:layout_height="85dp"
-            tools:src="@tools:sample/avatars" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@drawable/bg_edittext">
 
             <TextView
                 android:id="@+id/tvUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
                 android:textColor="@android:color/white"
                 android:textSize="21sp"
-                android:textStyle="bold"
-                android:text="Budi Setiawan" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="5dp"
-                android:textColor="@android:color/white"
-                android:text="budisetiawan@google.com" />
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="@android:color/white" />
         </LinearLayout>
     </LinearLayout>
 
@@ -65,14 +59,12 @@
             android:padding="15dp">
 
             <ImageView
-                android:id="@+id/ivmenupengaturan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="4dp"
                 android:src="@drawable/riwayat" />
 
             <TextView
-                android:id="@+id/tvmenupengaturan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -93,14 +85,12 @@
             android:padding="15dp">
 
             <ImageView
-                android:id="@+id/ivmenubahasa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="5dp"
                 android:src="@drawable/daftarpinjam" />
 
             <TextView
-                android:id="@+id/tvmenubahasa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -121,20 +111,45 @@
             android:padding="15dp">
 
             <ImageView
-                android:id="@+id/ivmenunotif"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="4dp"
                 android:src="@drawable/edit_profile" />
 
             <TextView
-                android:id="@+id/tvmenunotif"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:drawableRight="@drawable/arrow"
                 android:paddingRight="20dp"
                 android:text="Edit Profile"
+                android:textColor="@color/white"
+                android:textSize="21sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!--Change Password-->
+        <LinearLayout
+            android:id="@+id/menuChangePass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/daftarpinjam" />
+<!--        jgn lupa ganti icon    -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:drawableRight="@drawable/arrow"
+                android:paddingRight="20dp"
+                android:text="Change Password"
                 android:textColor="@color/white"
                 android:textSize="21sp"
                 android:textStyle="bold" />
@@ -149,14 +164,12 @@
             android:padding="15dp">
 
             <ImageView
-                android:id="@+id/ivmenuhelp"
-                android:layout_width="23dp"
-                android:layout_height="24dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="5dp"
-                android:src="@drawable/del_acc" />
+                android:src="@drawable/dell_account" />
 
             <TextView
-                android:id="@+id/tvmenuhelp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -177,14 +190,12 @@
             android:padding="15dp">
 
             <ImageView
-                android:id="@+id/ivmenuriwayat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginStart="5dp"
                 android:src="@drawable/sign_out" />
 
             <TextView
-                android:id="@+id/tvmenuriwayat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"

@@ -62,7 +62,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     vh.tvTitle.setText(m.getTitle().toString());
 
     if (m.getRelease_date() != null) {
-      vh.tvReleasedate.setText(m.getRelease_date().toString());
+      vh.tvReleasedate.setText(m.getRelease_date_year().toString());
     } else {
       vh.tvReleasedate.setText("N/A");
     }

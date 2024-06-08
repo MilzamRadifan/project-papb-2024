@@ -34,7 +34,7 @@ import java.util.List;
 public class WishlistFragment extends Fragment {
 
   private FirebaseAuth mAuth;
-  private DatabaseReference databaseReference;
+  private DatabaseReference dataWishlist, dataUser;
   private FirebaseUser curUser;
   RecyclerView recyclerView;
   private WishlistAdapter adapter;
@@ -94,13 +94,30 @@ public class WishlistFragment extends Fragment {
 
     mAuth = FirebaseAuth.getInstance();
     curUser = mAuth.getCurrentUser();
-    databaseReference = FirebaseDatabase.getInstance().getReference("wishlist").child(curUser.getUid());
+    dataWishlist = FirebaseDatabase.getInstance().getReference("wishlist").child(curUser.getUid());
 
     adapter = new WishlistAdapter(getContext(), wishlistList);
     recyclerView.setAdapter(adapter);
 
     tvGreet = view.findViewById(R.id.tvGreet);
-    tvGreet.setText(curUser.getEmail() + " Wishlist");
+
+    if (curUser != null){
+      dataUser = FirebaseDatabase.getInstance().getReference("users").child(curUser.getUid());
+      dataUser.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+          if (snapshot.exists()){
+            String username = snapshot.child("username").getValue(String.class);
+            tvGreet.setText(username + " Wishlist");
+          }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+          tvGreet.setText("Unknown");
+        }
+      });
+    }
 
     fetchDataWislist();
     return view;
@@ -113,7 +130,7 @@ public class WishlistFragment extends Fragment {
   }
 
   private void fetchDataWislist() {
-    databaseReference.addValueEventListener(new ValueEventListener() {
+    dataWishlist.addValueEventListener(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
         wishlistList.clear();
