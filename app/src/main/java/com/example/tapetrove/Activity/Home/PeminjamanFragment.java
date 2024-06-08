@@ -172,116 +172,37 @@ public class PeminjamanFragment extends Fragment {
       Thread tGenre = new GenreThread(hGenre);
       tGenre.start();
 
-      Button btnSewa = view.findViewById(R.id.buttonSewa);
-
-      BottomNavigationView peminjamanMenu = view.findViewById(R.id.peminjaman_menu);
-      peminjamanMenu.setOnItemSelectedListener(item -> {
-        if (item.getItemId() == R.id.bottom_wishlist) {
-          String userId = firebaseAuth.getCurrentUser().getUid();
-          int movieId = movie.getId();
-
-          databaseReference.child("wishlist").child(userId)
-              .orderByChild("movieId").equalTo(movieId)
-              .addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                  if (dataSnapshot.exists()) {
-                    Toast.makeText(getActivity(), "Film sudah ada di wishlist", Toast.LENGTH_SHORT).show();
-                  } else {
-                    Wishlist wishlist = new Wishlist(userId, movieId);
-                    databaseReference.child("wishlist").child(userId).push().setValue(wishlist)
-                        .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
-                          @Override
-                          public void onComplete(@NonNull Task<Void> task) {
-                            Intent intent = new Intent(getActivity(), ProfileActivity.class);
-                            intent.putExtra("openFragment", "wishlist");
-                            startActivity(intent);
-                          }
-                        });
-                  }
+            Button btnSewa = view.findViewById(R.id.buttonSewa);
+            BottomNavigationView peminjamanMenu = view.findViewById(R.id.peminjaman_menu);
+            peminjamanMenu.setOnItemSelectedListener(item -> {
+                if (item.getItemId() == R.id.bottom_wishlist) {
+                    Intent intent = new Intent();
+                    intent.putExtra(Intent.EXTRA_TEXT, movie.getTitle());
+                } else if (item.getItemId() == R.id.bottom_bagikan) {
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Ayo sewa film "+title+", hanya Rp.30.000 di aplikasi TaveTrove");
+                    sendIntent.setType("text/plain");
+                    Intent shareIntent = Intent.createChooser(sendIntent, null);
+                    startActivity(shareIntent);
+                    return true;
+                } else if (item.getItemId() == R.id.bottom_rating) {
+                    Bundle bundleRating = new Bundle();
+                    bundleRating.putInt("idFilm", movie.getId());
+                    ((MainActivity) getContext()).replaceFragmentWithBundle(new RatingFragment(), bundleRating);
                 }
-
+                return false;
+            });
+            btnSewa.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("film", movie);
+                    // Panggil metode untuk mengganti fragment dan kirim Bundle ke fragment peminjaman
+                    ((MainActivity) getContext()).replaceFragmentWithBundle(new PembayaranFragment(), bundle);
                 }
-              });
-          return true;
-        } else if (item.getItemId() == R.id.bottom_bagikan) {
-          Intent sendIntent = new Intent();
-          sendIntent.setAction(Intent.ACTION_SEND);
-          sendIntent.putExtra(Intent.EXTRA_TEXT, "Ayo sewa film " + title + ", hanya Rp.30.000 di aplikasi TaveTrove");
-          sendIntent.setType("text/plain");
-          Intent shareIntent = Intent.createChooser(sendIntent, null);
-          startActivity(shareIntent);
-          return true;
-        } else if (item.getItemId() == R.id.bottom_rating) {
-          Bundle bundleRating = new Bundle();
-          bundleRating.putInt("idFilm", movie.getId());
-          ((MainActivity) getContext()).replaceFragmentWithBundle(new RatingFragment(), bundleRating);
-          return true;
+            });
         }
-        return false;
-      });
-      btnSewa.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-          Bundle bundle = new Bundle();
-          bundle.putSerializable("film", movie);
-          // Panggil metode untuk mengganti fragment dan kirim Bundle ke fragment peminjaman
-          ((MainActivity) getContext()).replaceFragmentWithBundle(new PembayaranFragment(), bundle);
-        }
-      });
-
-
-      databaseReference.child("peminjaman").child(firebaseAuth.getUid()).addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot snapshot) {
-          List<Peminjaman> peminjamanList = new ArrayList<>();
-          peminjamanList.clear();  // Clear the list to avoid duplicate entries
-          for (DataSnapshot peminjamanSnapshot : snapshot.getChildren()) {
-            Peminjaman peminjaman = peminjamanSnapshot.getValue(Peminjaman.class);
-            peminjamanList.add(peminjaman);
-            if (peminjaman.getId_movie() == movie.getId()) {
-              btnSewa.setEnabled(false);
-              btnSewa.setBackgroundColor(Color.parseColor("#ADD8E6"));
-              btnSewa.setTextColor(Color.parseColor("#808080"));
-              btnSewa.setText("You've already rent this movie");
-              break;
-            } else {
-              btnSewa.setEnabled(true);
-              btnSewa.setBackgroundColor(Color.parseColor("#FF095DC2"));
-              btnSewa.setTextColor(Color.parseColor("#fbfdff"));
-              btnSewa.setText("Rent The Movie");
-            }
-          }
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-          Log.e("firebase", "Error getting data", error.toException());
-        }
-      });
-      String dateString = movie.getRelease_date();
-      SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-      try {
-        // Parsing string tanggal menjadi objek Date
-        Date targetDate = dateFormat.parse(dateString);
-        // Mendapatkan tanggal saat ini
-        Date currentDate = new Date();
-        // Mengecek apakah tanggal saat ini lebih besar dari tanggal target
-
-        if (currentDate.before(targetDate)) {
-          btnSewa.setEnabled(false);
-          btnSewa.setBackgroundColor(Color.parseColor("#ADD8E6"));
-          btnSewa.setTextColor(Color.parseColor("#808080"));
-          btnSewa.setText("The movie is not yet available");
-        }
-      } catch (ParseException e) {
-        System.out.println("Format tanggal tidak valid.");
-        e.printStackTrace();
-      }
-    }
 
   }
 
