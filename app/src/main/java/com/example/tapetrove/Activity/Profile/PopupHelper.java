@@ -1,5 +1,6 @@
 package com.example.tapetrove.Activity.Profile;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -42,17 +43,18 @@ public class PopupHelper {
     String url = baseUrl + peminjaman.getId_movie();
     OkHttpClient client = new OkHttpClient();
     Request request = new Request.Builder()
-        .url(url)
-        .addHeader("Authorization", "Bearer " + token)
-        .build();
+            .url(url)
+            .addHeader("Authorization", "Bearer " + token)
+            .build();
     new Thread(() -> {
       try (Response response = client.newCall(request).execute()) {
         if (response.isSuccessful()) {
           String res = response.body().string();
           JSONObject jsonObject = new JSONObject(res);
           String title = jsonObject.getString("title");
-          tvNamaFilmPopup.setText(title);
-
+          ((Activity) context).runOnUiThread(() -> {
+            tvNamaFilmPopup.setText(title);
+          });
         }
       } catch (IOException | JSONException e) {
         e.printStackTrace();
@@ -60,7 +62,6 @@ public class PopupHelper {
     }).start();
 
     // Mengisi teks dengan data yang sesuai
-
     tvPaymentMethodPopup.setText(peminjaman.getMetode_pembayaran());
     tvHargaSewaPopup.setText(String.valueOf(peminjaman.getHarga_sewa()));
     tvtanggalRentPopup.setText(peminjaman.getTanggal_sewa());
