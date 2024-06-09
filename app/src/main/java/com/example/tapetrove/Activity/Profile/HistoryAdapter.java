@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -43,12 +44,14 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     private ImageView ivfilm;
     private TextView tvNamaFilm,tvGenre;
     private Button btDetail;
+    private CardView cardRv;
     public ViewHolder(@NonNull View itemView) {
       super(itemView);
       this.ivfilm = itemView.findViewById(R.id.ivfilm);
       this.tvNamaFilm=itemView.findViewById(R.id.tvNamaFilm);
       this.tvGenre=itemView.findViewById(R.id.tvHistoryGenre);
       this.btDetail=itemView.findViewById(R.id.btDetail);
+      this.cardRv = itemView.findViewById(R.id.cardRv);
       btDetail.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -112,6 +115,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         e.printStackTrace();
       }
     }).start();
+
+    holder.cardRv.setOnClickListener(v -> {
+
+    });
   }
 
   @Override

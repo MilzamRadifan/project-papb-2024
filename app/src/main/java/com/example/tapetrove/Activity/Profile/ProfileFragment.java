@@ -2,11 +2,13 @@ package com.example.tapetrove.Activity.Profile;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,9 +31,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class ProfileFragment extends Fragment {
 
-    private Button btEdit, btOut;
+public class ProfileFragment extends Fragment {
     private LinearLayout menuRent, menuWishlist, menuEditProfile, menuDelAcc, menuSignOut, menuChangePass;
     TextView tvUsername, tvEmail;
     DatabaseReference useRef;
@@ -46,25 +47,30 @@ public class ProfileFragment extends Fragment {
         tvEmail = view.findViewById(R.id.tvEmail);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null){
+        if (user != null) {
             String email = user.getEmail();
             tvEmail.setText(email);
 
-            useRef = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
-            useRef.addValueEventListener(new ValueEventListener() {
+            new Thread(new Runnable() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.exists()){
-                        String username = snapshot.child("username").getValue(String.class);
-                        tvUsername.setText(username);
-                    }
-                }
+                public void run() {
+                    useRef = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
+                    useRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.exists()) {
+                                String username = snapshot.child("username").getValue(String.class);
+                                new Handler(Looper.getMainLooper()).post(() -> tvUsername.setText(username));
+                            }
+                        }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    tvUsername.setText("Unknown");
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            new Handler(Looper.getMainLooper()).post(() -> tvUsername.setText("Unknown"));
+                        }
+                    });
                 }
-            });
+            }).start();
         }
 
         // Inisialisasi menu

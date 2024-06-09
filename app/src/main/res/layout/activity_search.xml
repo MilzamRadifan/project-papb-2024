@@ -22,10 +22,10 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#095DC2"
+            android:background="#232D3F"
             app:tabIndicatorColor="@color/white"
             app:tabSelectedTextColor="@color/white"
-            app:tabTextColor="@color/black">
+            app:tabTextColor="#7CFFFFFF">
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/searchTab"

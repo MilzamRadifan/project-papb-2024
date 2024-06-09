@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000519"
-    tools:context=".Activity.Profile.WishlistActivity">
+    android:background="#000519">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvWishlist"
@@ -27,7 +26,7 @@
         android:gravity="center"
         android:text="TextView"
         android:textColor="#FFFFFF"
-        android:textSize="16sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

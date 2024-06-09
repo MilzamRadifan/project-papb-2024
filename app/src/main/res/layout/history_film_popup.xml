@@ -181,8 +181,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:backgroundTint="#095DC2"
-            android:text="Tutup" />
+            android:background="@drawable/bg_round_blue"
+            android:text="Tutup"
+            android:textColor="#FFFFFF" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

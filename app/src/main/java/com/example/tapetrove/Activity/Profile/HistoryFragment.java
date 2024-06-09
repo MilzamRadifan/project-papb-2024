@@ -12,11 +12,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.tapetrove.Activity.Home.MovieAdapter;
 import com.example.tapetrove.Database.Peminjaman;
 import com.example.tapetrove.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,10 +44,12 @@ public class HistoryFragment extends Fragment {
   private String mParam1;
   private String mParam2;
   private FirebaseAuth firebaseAuth;
+  private FirebaseUser curUser;
   private FirebaseDatabase firebaseDatabase;
-  private DatabaseReference databaseReference;
+  private DatabaseReference dataHistory, dataUser;
   private RecyclerView rvHistory;
   private List<Peminjaman> peminjamanList;
+  private TextView tvGreet;
 
   public HistoryFragment() {
     // Required empty public constructor
@@ -85,9 +89,31 @@ public class HistoryFragment extends Fragment {
     View view = inflater.inflate(R.layout.fragment_history, container, false);
     firebaseAuth = FirebaseAuth.getInstance();
     firebaseDatabase = FirebaseDatabase.getInstance();
-    databaseReference = firebaseDatabase.getReference("peminjaman").child(firebaseAuth.getUid());
+    dataHistory = firebaseDatabase.getReference("peminjaman").child(firebaseAuth.getUid());
     rvHistory = view.findViewById(R.id.rvHistory);
     peminjamanList = new ArrayList<>();
+
+    tvGreet = view.findViewById(R.id.tvGreet);
+
+    curUser = firebaseAuth.getCurrentUser();
+
+    if (curUser != null){
+      dataUser = FirebaseDatabase.getInstance().getReference("users").child(curUser.getUid());
+      dataUser.addValueEventListener(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+          if (snapshot.exists()){
+            String username = snapshot.child("username").getValue(String.class);
+            tvGreet.setText(username + " Rent History");
+          }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+          tvGreet.setText("Unknown");
+        }
+      });
+    }
 
     return view;
   }
@@ -95,7 +121,7 @@ public class HistoryFragment extends Fragment {
   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    databaseReference.addValueEventListener(new ValueEventListener() {
+    dataHistory.addValueEventListener(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot snapshot) {
         peminjamanList.clear();

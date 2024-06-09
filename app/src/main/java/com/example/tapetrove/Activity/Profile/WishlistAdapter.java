@@ -1,6 +1,8 @@
 package com.example.tapetrove.Activity.Profile;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.tapetrove.Activity.Home.MainActivity;
 import com.example.tapetrove.Database.Wishlist;
 import com.example.tapetrove.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -70,7 +73,7 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
           JSONObject jsonObject = new JSONObject(res);
           String title = jsonObject.getString("title");
           String release = jsonObject.getString("release_date");
-          String pathImage = jsonObject.getString("backdrop_path");
+          String pathImage = jsonObject.getString("poster_path");
           holder.itemView.post(() -> {
             holder.tvTitle.setText(title);
             holder.tvReleaseDate.setText(release);
@@ -81,6 +84,10 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
         e.printStackTrace();
       }
     }).start();
+
+    holder.cardRv.setOnClickListener(v -> {
+
+    });
 
     holder.btDelete.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -128,7 +135,7 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
     TextView tvTitle, tvReleaseDate;
     Button btDelete;
     ImageView imgPoster;
-    CardView cardrv;
+    CardView cardRv;
 
     public ViewHolder(View itemView) {
       super(itemView);
@@ -136,7 +143,7 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistAdapter.ViewHo
       tvReleaseDate = itemView.findViewById(R.id.tvReleasedate);
       btDelete = itemView.findViewById(R.id.btDelete);
       imgPoster = itemView.findViewById(R.id.imgPoster);
-      cardrv = itemView.findViewById(R.id.cardRv);
+      cardRv = itemView.findViewById(R.id.cardRv);
     }
   }
 }

@@ -4,51 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
-    android:background="#000519">
+    android:padding="8dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardRv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivfilm"
+            android:layout_width="90dp"
+            android:layout_height="120dp"
+            android:contentDescription="poster"
+            android:scaleType="centerCrop"
+            app:flow_horizontalBias="0.0"
+            app:flow_verticalBias="0.0" />
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/tvNamaFilm"
-        android:layout_width="0dp"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:textSize="21sp"
-        android:textColor="#FBFDFF"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/btDetail"
-        app:layout_constraintStart_toEndOf="@+id/ivfilm"
-        app:layout_constraintTop_toTopOf="@+id/ivfilm"
-        tools:text="MEGAN" />
+        android:layout_below="@id/cardRv"
+        android:layout_marginStart="15dp"
+        android:gravity="center|start"
+        android:text="Free Guy"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@color/white"
+        android:textColorLink="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/cardRv"
+        app:layout_constraintTop_toTopOf="@+id/cardRv" />
 
     <TextView
         android:id="@+id/tvHistoryGenre"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:textColor="#FBFDFF"
-        app:layout_constraintEnd_toStartOf="@+id/btDetail"
-        app:layout_constraintStart_toEndOf="@+id/ivfilm"
-        app:layout_constraintTop_toBottomOf="@+id/tvNamaFilm"
-        tools:text="Genre: Horror, Thriller, Mystery"/>
-
-    <ImageView
-        android:id="@+id/ivfilm"
-        android:layout_width="80dp"
-        android:layout_height="100dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/m3gan" />
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/tvNamaFilm"
+        android:layout_marginTop="10dp"
+        android:gravity="center|start"
+        android:text="2021"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/tvNamaFilm"
+        app:layout_constraintTop_toBottomOf="@+id/tvNamaFilm" />
 
     <Button
         android:id="@+id/btDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#095DC2"
-        android:textColor="#FBFDFF"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="15dp"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_round_blue"
         android:text="Detail"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textColor="#FBFDFF"
+        app:layout_constraintBottom_toBottomOf="@+id/cardRv"
+        app:layout_constraintStart_toStartOf="@+id/tvHistoryGenre"
+        app:layout_constraintTop_toBottomOf="@+id/tvHistoryGenre" />
 </androidx.constraintlayout.widget.ConstraintLayout>
