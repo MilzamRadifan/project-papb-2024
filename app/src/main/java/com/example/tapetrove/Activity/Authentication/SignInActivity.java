@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,6 +27,7 @@ public class SignInActivity extends AppCompatActivity {
 
   private EditText etEmail, etPassword;
   private Button btSignIn, btSignUp;
+  private TextView tvSignUp;
   private FirebaseAuth mAuth;
   private FirebaseDatabase database;
 
@@ -37,7 +39,7 @@ public class SignInActivity extends AppCompatActivity {
     etEmail = findViewById(R.id.etEmail);
     etPassword = findViewById(R.id.etPassword);
     btSignIn = findViewById(R.id.btSignin);
-    btSignUp = findViewById(R.id.btSignUp);
+    tvSignUp = findViewById(R.id.tvSignUp);
 
     mAuth = FirebaseAuth.getInstance();
     database = FirebaseDatabase.getInstance();
@@ -57,7 +59,7 @@ public class SignInActivity extends AppCompatActivity {
       }
     });
 
-    btSignUp.setOnClickListener(new View.OnClickListener() {
+    tvSignUp.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);

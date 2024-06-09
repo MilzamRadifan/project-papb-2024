@@ -6,10 +6,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activity.Profile.EditProfileFragment"
     android:background="#000519"
-    android:id="@+id/frame_Layout2">
+    android:id="@+id/frame_Layout3">
 
     <TextView
-        android:id="@+id/signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"

@@ -21,29 +21,21 @@
             android:name=".Activity.Profile.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.Profile.ProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.Profile.WishlistActivity"
-            android:exported="false" />
-        <activity
             android:name=".Activity.Authentication.SignUpActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
         <activity
             android:name=".Activity.Authentication.SignInActivity"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activity.Search.SearchActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activity.Home.MainActivity"
-            android:exported="false" />
         <activity
             android:name=".Activity.Search.SearchActivity"
             android:exported="false" />

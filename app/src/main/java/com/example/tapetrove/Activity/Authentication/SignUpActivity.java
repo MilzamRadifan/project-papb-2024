@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,7 +25,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
   private EditText etEmail, etPassword, etPassConfirm, etUsername, etAddress, etTelephone;
-  private Button btSignUp, btSignIn;
+  private Button btSignUp;
+  private TextView tvSignIn;
   private String email, password, passwordConfirm, username, address, telephone;
   private FirebaseAuth mAuth;
   private FirebaseDatabase database;
@@ -45,7 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
     etPassConfirm = findViewById(R.id.etPassConfirm);
 
     btSignUp = findViewById(R.id.btSignUp);
-    btSignIn = findViewById(R.id.btSignIn);
+    tvSignIn = findViewById(R.id.tvSignIn);
 
     btSignUp.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -72,7 +74,7 @@ public class SignUpActivity extends AppCompatActivity {
       }
     });
 
-    btSignIn.setOnClickListener(new View.OnClickListener() {
+    tvSignIn.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
         Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);

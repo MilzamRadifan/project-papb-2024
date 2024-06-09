@@ -23,9 +23,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#095DC2"
-            app:tabTextColor="@color/black"
             app:tabIndicatorColor="@color/white"
-            app:tabSelectedTextColor="@color/white">
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="@color/black">
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/searchTab"
@@ -46,7 +46,7 @@
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="409dp"
-        android:layout_height="723dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,6 @@
         app:itemTextColor="#FBFDFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav" />
 

@@ -1,153 +1,160 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000519"
     tools:context=".Activity.Authentication.SignUpActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
-
-    <TextView
-        android:id="@+id/signup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:gravity="center"
-        android:text="Sign Up"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <LinearLayout
-        android:id="@+id/content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical"
-        android:padding="20dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup">
+        android:layout_height="0dp">
 
-        <EditText
-            android:id="@+id/etUsername"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="Create your Account"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <LinearLayout
+            android:id="@+id/content"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@drawable/bg_round_white"
-            android:hint="Username"
-            android:inputType="text"
-            android:paddingLeft="30dp"
-            android:paddingRight="20dp"
-            android:textColor="@color/black"
-            android:textColorHint="#767676" />
+            android:orientation="vertical"
+            android:padding="20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signup">
 
-        <EditText
-            android:id="@+id/etTelephone"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            <EditText
+                android:id="@+id/etUsername"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Username"
+                android:inputType="text"
+                android:paddingLeft="30dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/white"
+                android:textColorHint="#ACACAC" />
+
+            <EditText
+                android:id="@+id/etTelephone"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Nomor Telepon"
+                android:inputType="text|phone"
+                android:paddingLeft="30dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/white"
+                android:textColorHint="#ACACAC" />
+
+            <EditText
+                android:id="@+id/etAddress"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Alamat"
+                android:inputType="text"
+                android:paddingLeft="30dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/white"
+                android:textColorHint="#ACACAC" />
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_edittext"
+                android:hint="Email Address"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="30dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/white"
+                android:textColorHint="#ACACAC" />
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_edittext"
+                android:drawableRight="@drawable/lock"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingLeft="30dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/white"
+                android:textColorHint="#ACACAC" />
+
+            <EditText
+                android:id="@+id/etPassConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_edittext"
+                android:drawableRight="@drawable/lock"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:paddingLeft="30dp"
+                android:paddingRight="20dp"
+                android:textColor="@color/white"
+                android:textColorHint="#ACACAC" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btSignUp"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@drawable/bg_round_white"
-            android:hint="Nomor Telepon"
-            android:inputType="text|phone"
-            android:paddingLeft="30dp"
-            android:paddingRight="20dp"
-            android:textColor="@color/black"
-            android:textColorHint="#767676" />
+            android:backgroundTint="#095DC2"
+            android:clickable="true"
+            android:text="Sign Up"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/content" />
 
-        <EditText
-            android:id="@+id/etAddress"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_round_white"
-            android:hint="Alamat"
-            android:inputType="text"
-            android:paddingLeft="30dp"
-            android:paddingRight="20dp"
-            android:textColor="@color/black"
-            android:textColorHint="#767676" />
 
-        <EditText
-            android:id="@+id/etEmail"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_round_white"
-            android:hint="Email Address"
-            android:inputType="textEmailAddress"
-            android:paddingLeft="30dp"
-            android:paddingRight="20dp"
-            android:textColor="#000000"
-            android:textColorHint="#767676" />
-
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_button_white"
-            android:drawableRight="@drawable/lock"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:paddingLeft="30dp"
-            android:paddingRight="20dp"
-            android:textColor="#000000"
-            android:textColorHint="#767676" />
-
-        <EditText
-            android:id="@+id/etPassConfirm"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_button_white"
-            android:hint="Confirm Password"
-            android:inputType="textPassword"
-            android:paddingLeft="30dp"
-            android:paddingRight="20dp"
-            android:textColor="#000000"
-            android:textColorHint="#767676" />
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btSignUp"
-        android:layout_width="199dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#095DC2"
-        android:clickable="true"
-        android:text="Daftar"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/content" />
-
-    <Button
-        android:id="@+id/btSignIn"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="#095DC2"
-        android:clickable="true"
-        android:text="Sign In"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/btSignUp"
-        app:layout_constraintStart_toStartOf="@+id/btSignUp"
-        app:layout_constraintTop_toBottomOf="@+id/btSignUp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tvSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="40dp"
+            android:clickable="true"
+            android:text="Already have an Account ? Sign In"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/btSignUp"
+            app:layout_constraintStart_toStartOf="@+id/btSignUp"
+            app:layout_constraintTop_toBottomOf="@+id/btSignUp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
