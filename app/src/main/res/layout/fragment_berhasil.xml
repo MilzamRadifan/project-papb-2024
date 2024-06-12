@@ -58,11 +58,11 @@
             android:layout_marginLeft="12dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="12dp"
-            android:backgroundTint="@color/blue"
+            android:background="@drawable/bg_round_blue"
             android:text="Kembali ke laman Peminjaman"
+            android:textColor="#fbfdff"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:textColor="#fbfdff"
             app:layout_constraintEnd_toEndOf="@+id/textView33"
             app:layout_constraintStart_toStartOf="@+id/textView33"
             app:layout_constraintTop_toBottomOf="@+id/textView33" />

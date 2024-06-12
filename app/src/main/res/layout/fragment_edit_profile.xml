@@ -74,11 +74,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="110dp"
         android:layout_marginTop="430dp"
+        android:background="@drawable/bg_button_white"
         android:backgroundTint="#095DC2"
         android:clickable="true"
-        android:background="@drawable/bg_button_white"
-        android:textColor="@color/white"
-        android:text="Simpan Perubahan" />
+        android:text="Save Changes"
+        android:textColor="@color/white" />
 
 
 

@@ -50,9 +50,10 @@
         android:layout_below="@id/rbRatingBar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
+        android:background="@drawable/bg_round_blue"
         android:paddingHorizontal="30dp"
-        android:background="@drawable/bg_button_white"
-        android:text="Proceed to Review" />
+        android:text="Proceed to Review"
+        android:textColor="#FFFFFF" />
 
     <Button
         android:id="@+id/btnDeleteRating"

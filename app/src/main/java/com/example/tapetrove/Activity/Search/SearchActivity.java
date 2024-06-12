@@ -71,17 +71,14 @@ public class SearchActivity extends AppCompatActivity {
     bottomNavigationView.setSelectedItemId(R.id.search);
     bottomNavigationView.setOnItemSelectedListener(item -> {
       if (item.getItemId() == R.id.home) {
-        // Handle Home item click
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
         finish();
         return true;
       } else if (item.getItemId() == R.id.search) {
-        // Handle Search item click
         startActivity(new Intent(getApplicationContext(), SearchActivity.class));
         finish();
         return true;
       } else if (item.getItemId() == R.id.profile) {
-        // Handle Profile item click
         startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
         finish();
         return true;

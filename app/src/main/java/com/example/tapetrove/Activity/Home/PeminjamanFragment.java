@@ -209,7 +209,7 @@ public class PeminjamanFragment extends Fragment {
                 } else if (item.getItemId() == R.id.bottom_bagikan) {
                     Intent sendIntent = new Intent();
                     sendIntent.setAction(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Ayo sewa film "+title+", hanya Rp.30.000 di aplikasi TaveTrove");
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, "Ayo sewa film "+title+", hanya Rp.30.000 di aplikasi TapeTrove");
                     sendIntent.setType("text/plain");
                     Intent shareIntent = Intent.createChooser(sendIntent, null);
                     startActivity(shareIntent);
