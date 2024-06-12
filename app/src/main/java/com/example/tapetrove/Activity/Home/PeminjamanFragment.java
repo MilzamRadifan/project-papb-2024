@@ -274,6 +274,11 @@ public class PeminjamanFragment extends Fragment {
         System.out.println("Format tanggal tidak valid.");
         e.printStackTrace();
       }
+
+      FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+      CommentFragment commentFragment = CommentFragment.newInstance(title, String.valueOf(movie.getId()));
+      transaction.replace(R.id.comment_fragment_container, commentFragment);
+      transaction.commit();
     }
   }
 }

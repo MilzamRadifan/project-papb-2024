@@ -32,8 +32,9 @@ public class ReviewFragment extends Fragment {
     int idFilm;
     String title;
     String review;
+    String userName;
     FirebaseAuth mAuth;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference, userRef;
     FirebaseUser firebaseUser;
 
     @Override
@@ -44,7 +45,6 @@ public class ReviewFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
 
-        String userName = firebaseUser.getEmail();
         String userId = firebaseUser.getUid();
 
         float rating;
@@ -58,6 +58,25 @@ public class ReviewFragment extends Fragment {
         }
 
         databaseReference = FirebaseDatabase.getInstance().getReference("ratings").child(String.valueOf(idFilm)).child(userId);
+        userRef = FirebaseDatabase.getInstance().getReference("users");
+
+        userRef.child(userId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    userName = dataSnapshot.child("username").getValue(String.class);
+                } else {
+                    System.out.println("Not Found");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle error
+                System.out.println("Database error: " + databaseError.getMessage());
+            }
+        });
+
         Button btnSubmit = view.findViewById(R.id.btnSubmit);
 
         btnSubmit.setOnClickListener(v -> {
