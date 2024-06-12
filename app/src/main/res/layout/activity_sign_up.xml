@@ -133,7 +133,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:backgroundTint="#095DC2"
+            android:background="@drawable/bg_round_blue"
             android:clickable="true"
             android:text="Sign Up"
             android:textColor="#FFFFFF"

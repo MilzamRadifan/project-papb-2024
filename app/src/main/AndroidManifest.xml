@@ -38,7 +38,7 @@
         <activity
             android:name=".Activity.Search.SearchActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".Activity.Home.MainActivity"
             android:exported="false" />

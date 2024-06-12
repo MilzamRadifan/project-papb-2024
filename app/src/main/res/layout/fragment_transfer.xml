@@ -271,7 +271,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="12dp"
-            android:backgroundTint="#023E94"
+            android:background="@drawable/bg_round_blue"
             android:text="Unduh QRIS"
             android:textColor="#fbfdff"
             android:textSize="18sp"

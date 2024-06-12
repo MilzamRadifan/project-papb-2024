@@ -68,16 +68,16 @@ public class SignInActivity extends AppCompatActivity {
     });
   }
 
-  @Override
-  public void onStart() {
-    super.onStart();
-    FirebaseUser currentUser = mAuth.getCurrentUser();
-    if(currentUser != null){
-      Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-      startActivity(intent);
-      finish();
-    }
-  }
+//  @Override
+//  public void onStart() {
+//    super.onStart();
+//    FirebaseUser currentUser = mAuth.getCurrentUser();
+//    if(currentUser != null){
+//      Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+//      startActivity(intent);
+//      finish();
+//    }
+//  }
 
   private void login(String email, String password) {
     mAuth.signInWithEmailAndPassword(email, password)
