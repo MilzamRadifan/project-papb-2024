@@ -75,7 +75,7 @@ public class FilmAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ApiResponse.Movie movie = this.movies.get(position);
         VH vh = (VH) holder;
         Glide.with(context)
-                .load("https://image.tmdb.org/t/p/w500/" + movie.getPoster_path())
+                .load("https://image.tmdb.org/t/p/w500/" + movie.getBackdrop_path())
                 .into(vh.ivTopPoster);
 //        vh.ivTopPoster.setImageBitmap(f.topPoster);
         vh.tvTopGenre.setText(movie.getTitle());

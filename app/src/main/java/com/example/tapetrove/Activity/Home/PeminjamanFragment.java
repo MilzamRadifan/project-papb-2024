@@ -33,6 +33,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -53,6 +54,7 @@ public class PeminjamanFragment extends Fragment {
   private String mParam1, mParam2;
   private TextView tvTitle, tvGenre, tvScore, tvRating, tvYear, tvDuration, tvSynopsis;
   private WebView webView;
+  private Button btnsewa;
   private FirebaseAuth firebaseAuth;
   private FirebaseDatabase firebaseDatabase;
   private DatabaseReference databaseReference;
@@ -93,6 +95,9 @@ public class PeminjamanFragment extends Fragment {
     tvDuration = view.findViewById(R.id.tvDuration);
     tvSynopsis = view.findViewById(R.id.tvSynopsis);
     webView = view.findViewById(R.id.wvTrailer);
+    webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+    btnsewa = view.findViewById(R.id.buttonSewa);
+    btnsewa.invalidate();
 
     firebaseAuth = FirebaseAuth.getInstance();
     firebaseDatabase = FirebaseDatabase.getInstance();
@@ -172,7 +177,6 @@ public class PeminjamanFragment extends Fragment {
       Thread tGenre = new GenreThread(hGenre);
       tGenre.start();
 
-            Button btnSewa = view.findViewById(R.id.buttonSewa);
             BottomNavigationView peminjamanMenu = view.findViewById(R.id.peminjaman_menu);
             peminjamanMenu.setOnItemSelectedListener(item -> {
                 if (item.getItemId() == R.id.bottom_wishlist) {
@@ -221,7 +225,7 @@ public class PeminjamanFragment extends Fragment {
                 }
                 return false;
             });
-      btnSewa.setOnClickListener(new View.OnClickListener() {
+      btnsewa.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
           Bundle bundle = new Bundle();
@@ -240,16 +244,11 @@ public class PeminjamanFragment extends Fragment {
             Peminjaman peminjaman = peminjamanSnapshot.getValue(Peminjaman.class);
             peminjamanList.add(peminjaman);
             if (peminjaman.getId_movie() == movie.getId()) {
-              btnSewa.setEnabled(false);
-              btnSewa.setBackgroundColor(Color.parseColor("#ADD8E6"));
-              btnSewa.setTextColor(Color.parseColor("#808080"));
-              btnSewa.setText("You've already rent this movie");
+              btnsewa.setEnabled(false);
+              btnsewa.setBackgroundColor(Color.parseColor("#ADD8E6"));
+              btnsewa.setTextColor(Color.parseColor("#808080"));
+              btnsewa.setText("You've already rent this movie");
               break;
-            } else {
-              btnSewa.setEnabled(true);
-              btnSewa.setBackgroundColor(Color.parseColor("#FF095DC2"));
-              btnSewa.setTextColor(Color.parseColor("#fbfdff"));
-              btnSewa.setText("Rent The Movie");
             }
           }
         }
@@ -266,10 +265,10 @@ public class PeminjamanFragment extends Fragment {
         Date currentDate = new Date();
 
         if (currentDate.before(targetDate)) {
-          btnSewa.setEnabled(false);
-          btnSewa.setBackgroundColor(Color.parseColor("#ADD8E6"));
-          btnSewa.setTextColor(Color.parseColor("#808080"));
-          btnSewa.setText("The movie is not yet available");
+          btnsewa.setEnabled(false);
+          btnsewa.setBackgroundColor(Color.parseColor("#ADD8E6"));
+          btnsewa.setTextColor(Color.parseColor("#808080"));
+          btnsewa.setText("The movie is not yet available");
         }
       } catch (ParseException e) {
         System.out.println("Format tanggal tidak valid.");

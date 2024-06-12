@@ -25,7 +25,6 @@
             android:exported="true"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
-
         <activity
             android:name=".Activity.Authentication.SignInActivity"
             android:exported="true"
@@ -38,7 +37,8 @@
         </activity>
         <activity
             android:name=".Activity.Search.SearchActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".Activity.Home.MainActivity"
             android:exported="false" />

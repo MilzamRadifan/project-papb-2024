@@ -23,13 +23,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvFilm"
                     android:layout_width="match_parent"
                     android:layout_height="210dp"
-                    android:scrollbars="horizontal"
                     android:scrollbarStyle="outsideInset"
-                    />
+                    android:scrollbars="horizontal" />
 
                 <TextView
                     android:id="@+id/textView34"
