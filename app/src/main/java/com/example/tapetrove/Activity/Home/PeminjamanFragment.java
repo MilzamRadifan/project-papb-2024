@@ -245,7 +245,7 @@ public class PeminjamanFragment extends Fragment {
             peminjamanList.add(peminjaman);
             if (peminjaman.getId_movie() == movie.getId()) {
               btnsewa.setEnabled(false);
-              btnsewa.setBackgroundColor(Color.parseColor("#ADD8E6"));
+              btnsewa.setBackgroundResource(R.drawable.bg_round_gray);          btnsewa.setTextColor(Color.parseColor("#808080"));
               btnsewa.setTextColor(Color.parseColor("#808080"));
               btnsewa.setText("You've already rent this movie");
               break;
@@ -266,8 +266,7 @@ public class PeminjamanFragment extends Fragment {
 
         if (currentDate.before(targetDate)) {
           btnsewa.setEnabled(false);
-          btnsewa.setBackgroundColor(Color.parseColor("#ADD8E6"));
-          btnsewa.setTextColor(Color.parseColor("#808080"));
+          btnsewa.setBackgroundResource(R.drawable.bg_round_gray);          btnsewa.setTextColor(Color.parseColor("#808080"));
           btnsewa.setText("The movie is not yet available");
         }
       } catch (ParseException e) {
