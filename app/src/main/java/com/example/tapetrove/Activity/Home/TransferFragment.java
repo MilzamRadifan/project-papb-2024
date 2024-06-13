@@ -31,6 +31,8 @@ import com.bumptech.glide.Glide;
 import com.example.tapetrove.Api.ApiResponse;
 import com.example.tapetrove.Api.Genre;
 import com.example.tapetrove.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -52,10 +54,13 @@ public class TransferFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private TextView setBank;
     private TextView setKeterangan;
+    private TextView transferFragment;
+
     private Button setButton;
     Button button;
     private TextView setJudul;
     private TextView setScore;
+    private FirebaseAuth mAuth;
     private static final int WRITE_EXTERNAL_STORAGE_PERMISSION_CODE = 1;
 
 
@@ -105,6 +110,9 @@ public class TransferFragment extends Fragment {
         setJudul = view.findViewById(R.id.tvTransferTitle);
         setScore = view.findViewById(R.id.tvTransferScore);
         button = view.findViewById(R.id.button);
+        transferFragment=view.findViewById(R.id.tvTransferEmail);
+        mAuth = FirebaseAuth.getInstance();
+
         return view;
     }
 
@@ -116,7 +124,8 @@ public class TransferFragment extends Fragment {
         if (bundle != null) {
             ApiResponse.Movie movie = (ApiResponse.Movie) bundle.getSerializable("film");
             String namaBank = bundle.getString("namaBank");
-
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            transferFragment.setText(currentUser.getEmail());
             if (getArguments() != null) {
                 List<Integer> genre_ids = movie.getGenre_ids();
                 List<String> movieGenres = new ArrayList<>();
@@ -129,7 +138,6 @@ public class TransferFragment extends Fragment {
                     Handler hGenre = new Handler(Looper.getMainLooper()) {
                         String formattedGenre;
                         TextView setGenre = view.findViewById(R.id.tvTransferGenre);
-
                         @Override
                         public void handleMessage(@NonNull Message msg) {
                             super.handleMessage(msg);
